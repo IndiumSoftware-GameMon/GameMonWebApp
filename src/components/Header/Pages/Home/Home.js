@@ -412,7 +412,7 @@ export default function SessionsMaincomp(props) {
             display: "flex",
             borderRadius: "14px",
             alignItems: "center",
-            marginLeft: "10%",
+            marginLeft: "18%",
             marginTop: "5.5%",
           }}
         >
@@ -805,17 +805,8 @@ export default function SessionsMaincomp(props) {
                           }}>
                           <FileDownloadIcon sx={{ fontSize: 30 }} />
 
-                          <ListItemText
-                           primary={
-                              <Typography
-                                type="body2"
-                                style={{ 
-                                color: "white",marginLeft:"22px" }}
-                              >
-                              Download the report
-                              </Typography>
-                            }
-                          ></ListItemText>
+                          <ListItemText     style={{ 
+                                color: "white",marginLeft:"22px" }}> Download the report</ListItemText>
                         </ListItem>
 
               
@@ -849,7 +840,7 @@ export default function SessionsMaincomp(props) {
                         <p
                           style={{
                             marginTop: "-40px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             fontWeight: "lighter",
                           }}
                         >
@@ -860,7 +851,7 @@ export default function SessionsMaincomp(props) {
                             fontSize: "13px",
                             fontWeight: "300",
                             marginTop: "-8px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             color: "#278EF1",
                           }}
                         >
@@ -877,7 +868,7 @@ export default function SessionsMaincomp(props) {
                         <p
                           style={{
                             marginTop: "-40px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             fontWeight: "lighter",
                           }}
                         >
@@ -888,7 +879,7 @@ export default function SessionsMaincomp(props) {
                             fontSize: "13px",
                             fontWeight: "300",
                             marginTop: "-8px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             color: "#278EF1",
                           }}
                         >
@@ -909,7 +900,7 @@ export default function SessionsMaincomp(props) {
                         <p
                           style={{
                             marginTop: "-40px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             fontWeight: "lighter",
                           }}
                         >
@@ -920,7 +911,7 @@ export default function SessionsMaincomp(props) {
                             fontSize: "13px",
                             fontWeight: "300",
                             marginTop: "-8px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             color: "#278EF1",
                           }}
                         >
@@ -942,7 +933,7 @@ export default function SessionsMaincomp(props) {
                         <p
                           style={{
                             marginTop: "-40px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             fontWeight: "lighter",
                           }}
                         >
@@ -953,7 +944,7 @@ export default function SessionsMaincomp(props) {
                             fontSize: "13px",
                             fontWeight: "300",
                             marginTop: "-8px",
-                            marginLeft: "85px",
+                            marginLeft: "125px",
                             color: "#278EF1",
                           }}
                         >

@@ -252,7 +252,6 @@ export default function SessionsMaincomp(props) {
     <>
       <main className={clsx(classes.content)}>
         <div className={classes.drawerHeader} />
-        <div className={classes.grids}>
         <div>
           <Button
             component={Link}
@@ -271,11 +270,13 @@ export default function SessionsMaincomp(props) {
             Back
           </Button>
         </div>
-          <div>
+        <div className={classes.grids} style={{padding:"50px"}} >
+   
+        <div>
             <Grid container spacing={4} direction="column">
               <Grid item xs={9} md={9}>
                 <>
-                <div
+                  <div
                     className="device-info-style"
                     style={{ marginTop: "25px" }}
                   >
@@ -295,13 +296,13 @@ export default function SessionsMaincomp(props) {
                           style={{
                             fontSize: "13px",
                             fontWeight: "300",
-                            marginTop: "-64px",
-                            marginLeft: "40px",
+                            marginTop: "-70px",
+                            marginLeft: "75px",
                           }}
                         >
                           {Secondsessiondata.version_name}
                         </p>
-                        <p style={{ marginTop: "-9px", marginLeft: "42px" }}>
+                        <p style={{ marginTop: "-9px", marginLeft: "75px" }}>
                           {" "}
                           Version
                         </p>
@@ -310,21 +311,9 @@ export default function SessionsMaincomp(props) {
                   </div>
 
                   <br />
-                  <Button
-                    component={Link}
-                    to="/"
-                    variant="contained"
-                    color="primary"
-                    style={{marginTop:"-239px",   color: "#FFFFFF",
-                    background: "#278EF1",
-                    borderRadius: "8px"}}
-                    startIcon={<FirstPageIcon />}
-                  >
-                    Back
-                  </Button>
+
                   <br></br>
 
-            
                   <div className="device-info-style-list">
                     <List
                       style={{
@@ -344,14 +333,24 @@ export default function SessionsMaincomp(props) {
                           <PhoneAndroidIcon sx={{ fontSize: 55 }} />
 
                           <ListItemText
-                            primary={global.sessionname}
+                          primary={
+                              <Typography
+                                type="body2"
+                                style={{
+                                  color: "white",marginLeft:"20px"
+                                }}
+                              >
+                              {global.sessionname}
+                              </Typography>
+                            }
                             secondary={
                               <Typography
                                 type="body2"
-                                style={{ 
-                                color: "white" }}
+                                style={{
+                                  color: "white",marginLeft:"20px"
+                                }}
                               >
-                            {global.appname}
+                                {global.appname}
                               </Typography>
                             }
                           ></ListItemText>

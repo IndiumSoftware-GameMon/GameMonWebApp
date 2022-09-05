@@ -276,12 +276,12 @@ export default function SessionsMaincomp(props) {
             Back
           </Button>
         </div>
-        <div className={classes.grids}>
-          <div>
+        <div className={classes.grids} style={{padding:"50px"}}>
+        <div>
             <Grid container spacing={4} direction="column">
               <Grid item xs={9} md={9}>
                 <>
-                <div
+                  <div
                     className="device-info-style"
                     style={{ marginTop: "25px" }}
                   >
@@ -301,13 +301,13 @@ export default function SessionsMaincomp(props) {
                           style={{
                             fontSize: "13px",
                             fontWeight: "300",
-                            marginTop: "-64px",
-                            marginLeft: "40px",
+                            marginTop: "-70px",
+                            marginLeft: "75px",
                           }}
                         >
                           {Secondsessiondata.version_name}
                         </p>
-                        <p style={{ marginTop: "-9px", marginLeft: "42px" }}>
+                        <p style={{ marginTop: "-9px", marginLeft: "75px" }}>
                           {" "}
                           Version
                         </p>
@@ -316,9 +316,8 @@ export default function SessionsMaincomp(props) {
                   </div>
 
                   <br />
-                  <br></br>
 
-            
+                  <br></br>
 
                   <div className="device-info-style-list">
                     <List
@@ -339,12 +338,22 @@ export default function SessionsMaincomp(props) {
                           <PhoneAndroidIcon sx={{ fontSize: 55 }} />
 
                           <ListItemText
-                            primary={global.sessionname}
+                          primary={
+                              <Typography
+                                type="body2"
+                                style={{
+                                  color: "white",marginLeft:"20px"
+                                }}
+                              >
+                              {global.sessionname}
+                              </Typography>
+                            }
                             secondary={
                               <Typography
                                 type="body2"
-                                style={{ 
-                                color: "white" }}
+                                style={{
+                                  color: "white",marginLeft:"20px"
+                                }}
                               >
                                 {global.appname}
                               </Typography>
@@ -356,8 +365,6 @@ export default function SessionsMaincomp(props) {
                       {console.log(Secondsessiondata)}
                     </List>
                   </div>
-
-
                 </>
               </Grid>
             </Grid>

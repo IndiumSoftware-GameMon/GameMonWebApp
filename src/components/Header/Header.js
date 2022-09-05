@@ -287,7 +287,7 @@ const Header = (props) => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar sx={{ bgcolor: blue[500], ml: 158 }}></Avatar>
+              <Avatar sx={{ bgcolor: blue[500], ml: 230 }}></Avatar>
             </IconButton>
             <button
               onClick={logoutHandler}
