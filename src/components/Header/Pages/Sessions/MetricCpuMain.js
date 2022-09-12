@@ -266,9 +266,22 @@ export default function SessionsMaincomp(props) {
       <main className={clsx(classes.content)}>
         <div className={classes.drawerHeader} />
         <div>
-          <button onClick={backButton}>
+        <Button
+            component={Link}
+            to="/"
+            variant="contained"
+            color="primary"
+            style={{
+              marginLeft: "92%",
+              marginTop: "-5%",
+              color: "#FFFFFF",
+              background: "#278EF1",
+              borderRadius: "10px",
+            }}
+            startIcon={<ArrowBackIosNewIcon />}
+          >
             Back
-          </button>
+          </Button>
         </div>
         <div className={classes.grids} style={{ padding: "50px" }}>
           <div>

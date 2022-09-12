@@ -300,7 +300,7 @@ export default function SessionsMaincomp(props) {
   }, [startDate, endDate]);
 
   React.useEffect(() => {
-    const sessionData = window.sessionStorage.getItem("sessiondata");
+    const sessionData = window.localStorage.getItem("sessiondata");
     const savedValues = JSON.parse(sessionData);
     // updateSessionValues(savedValues.Firstdevicedata);
     SetFirstdevicedata(savedValues.Firstdevicedata);
@@ -311,7 +311,7 @@ export default function SessionsMaincomp(props) {
 
   React.useEffect(() => {
     const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata }
-    window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
+    window.localStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
 
   })
 

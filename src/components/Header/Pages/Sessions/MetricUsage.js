@@ -16,7 +16,7 @@ function MetricUsage(props) {
     } else if (progress < 75 && progress > 50) {
       setColorProg("#47F3D0");
     } else {
-      setColorProg("#FF3E63");
+      setColorProg("#FFA500");
     }
   }, [progress]);
 
