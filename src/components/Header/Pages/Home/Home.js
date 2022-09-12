@@ -292,30 +292,30 @@ export default function SessionsMaincomp(props) {
         console.log(res.data.device_id);
         console.log(res.data.device_name);
         SetFirstdevicedata(res.data.data);
-        global.device_name=res.data.device_name;
+        global.device_name = res.data.device_name;
       })
       .catch((err) => {
         console.log(err, "errorr");
       });
   }, [startDate, endDate]);
 
-  React.useEffect(() =>{
-  const sessionData = window.localStorage.getItem("sessiondata");
-  const savedValues = JSON.parse(sessionData);
-  // updateSessionValues(savedValues.Firstdevicedata);
-  SetFirstdevicedata(savedValues.Firstdevicedata);
-  SetSeconddevicedata(savedValues.Seconddevicedata);
-  SetFirstsessiondata(savedValues.Firstsessiondata)
-  SetSecondsessiondata(savedValues.Secondsessiondata)
-  },[]);
+  React.useEffect(() => {
+    const sessionData = window.sessionStorage.getItem("sessiondata");
+    const savedValues = JSON.parse(sessionData);
+    // updateSessionValues(savedValues.Firstdevicedata);
+    SetFirstdevicedata(savedValues.Firstdevicedata);
+    SetSeconddevicedata(savedValues.Seconddevicedata);
+    SetFirstsessiondata(savedValues.Firstsessiondata)
+    SetSecondsessiondata(savedValues.Secondsessiondata)
+  }, []);
 
-  React.useEffect(()=>{ 
-    const valuesToSave = {Firstdevicedata,Seconddevicedata,Firstsessiondata,Secondsessiondata}
-    window.localStorage.setItem("sessiondata",JSON.stringify(valuesToSave))
+  React.useEffect(() => {
+    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata }
+    window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
 
   })
 
-    // window.localStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
+  // window.sessionStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
 
   function singleDeviceItem(e, data, id) {
     console.log(e.target, data, "eeeeeee");
@@ -336,7 +336,7 @@ export default function SessionsMaincomp(props) {
         console.log(res.data, "sescond value");
         console.log(res.data.data, "sescond value data");
         SetSeconddevicedata(res.data.data);
-    
+
       });
   }
 
@@ -386,13 +386,13 @@ export default function SessionsMaincomp(props) {
         console.log(res.data.data, "sescond value data");
         console.log(data.device_id)
         SetSecondsessiondata(res.data.data[0]);
-        global.sessionname=data.sessionname;
-        global.deviceid=data.device_id;
-        global.userid=data.user_id;
-        global.appname=data.app_name;      
-        global.sessionid=data.session_id;
-      
-  
+        global.sessionname = data.sessionname;
+        global.deviceid = data.device_id;
+        global.userid = data.user_id;
+        global.appname = data.app_name;
+        global.sessionid = data.session_id;
+
+
 
         setTimeout(() => {
           setSelectedDevice(Secondsessiondata.sessionname);
@@ -406,7 +406,7 @@ export default function SessionsMaincomp(props) {
   console.log(global.device_name)
 
 
-  
+
   return (
     <>
       <main className={clsx(classes.content)}>
@@ -627,7 +627,7 @@ export default function SessionsMaincomp(props) {
                     setSessions(e.target.textContent);
                     setSessionsActive(!SessionsActive);
                     singleSessionItem(e, data, i);
-                
+
                   }}
                   style={{
                     background: selecteditem === i ? "#278ef1" : "",
@@ -643,7 +643,7 @@ export default function SessionsMaincomp(props) {
             </div>
           </div>
         </div>
-     
+
 
         <div className={classes.grids}>
           <div>
@@ -672,33 +672,35 @@ export default function SessionsMaincomp(props) {
                             primary={
                               <Typography
                                 type="body2"
-                                style={{ 
-                                color: "white",marginLeft:"15px" }}
+                                style={{
+                                  color: "white", marginLeft: "15px"
+                                }}
                               >
-                          {Secondsessiondata.sessionname}
+                                {Secondsessiondata.sessionname}
                               </Typography>
                             }
                             secondary={
                               <Typography
                                 type="body2"
-                                style={{ 
-                                color: "white",marginLeft:"15px" }}
+                                style={{
+                                  color: "white", marginLeft: "15px"
+                                }}
                               >
-                             Session Name
+                                Session Name
                               </Typography>
                             }
                           ></ListItemText>
                         </ListItem>
 
-              
+
 
                       </div>
 
                       {console.log(Secondsessiondata)}
                     </List>
                   </div>
-      
-              
+
+
                   <br />
 
                   {/* <div
@@ -735,7 +737,7 @@ export default function SessionsMaincomp(props) {
                     </div>
                   </div> */}
 
-<div className="device-info-style-list">
+                  <div className="device-info-style-list">
                     <List
                       style={{
                         maxHeight: "94%",
@@ -757,25 +759,27 @@ export default function SessionsMaincomp(props) {
                             primary={
                               <Typography
                                 type="body2"
-                                style={{ 
-                                color: "white",marginLeft:"15px" }}
+                                style={{
+                                  color: "white", marginLeft: "15px"
+                                }}
                               >
-                           {Secondsessiondata.version_name}
+                                {Secondsessiondata.version_name}
                               </Typography>
                             }
                             secondary={
                               <Typography
                                 type="body2"
-                                style={{ 
-                                color: "white",marginLeft:"15px" }}
+                                style={{
+                                  color: "white", marginLeft: "15px"
+                                }}
                               >
-                             Version
+                                Version
                               </Typography>
                             }
                           ></ListItemText>
                         </ListItem>
 
-              
+
 
                       </div>
 
@@ -799,26 +803,27 @@ export default function SessionsMaincomp(props) {
                           borderRadius: "8px",
                         }}
                       >
-                      <ListItem button    onClick={() => {
-                            if (Secondsessiondata.session_id !== "") {
-                              window.open(
-                                `http://44.226.139.67:3000/getReport?sessionID=${Secondsessiondata.session_id}`
-                              );
-                            }
-                          }}>
+                        <ListItem button onClick={() => {
+                          if (Secondsessiondata.session_id !== "") {
+                            window.open(
+                              `http://44.226.139.67:3000/getReport?sessionID=${Secondsessiondata.session_id}`
+                            );
+                          }
+                        }}>
                           <FileDownloadIcon sx={{ fontSize: 30 }} />
 
-                          <ListItemText     style={{ 
-                                color: "white",marginLeft:"22px" }}> Download the report</ListItemText>
+                          <ListItemText style={{
+                            color: "white", marginLeft: "22px"
+                          }}> Download the report</ListItemText>
                         </ListItem>
 
-              
+
 
                       </div>
 
                       {console.log(Secondsessiondata)}
                     </List>
-                  </div>              
+                  </div>
 
                   {/* <h1>{Secondsessiondata.upload_data_usage_average}</h1> */}
                 </>
@@ -1026,7 +1031,7 @@ export default function SessionsMaincomp(props) {
                 />
               </Link>
             </Grid>
-    
+
             <Grid item xs={6} md={6}>
               <Link
                 to="/Sessions/:id/MetricDownloadData"
@@ -1064,16 +1069,16 @@ export default function SessionsMaincomp(props) {
             </Grid>
             <Grid item xs={6} md={6}>
               {/* <Link to="/Sessions/:id/power" style={{ textDecoration: "none" }}> */}
-                <MetricUsage
-                  value={
-                    Secondsessiondata.peak_memory_value !== undefined
-                      ? Secondsessiondata.peak_memory_value
-                      : 0
-                  }
-                  text="Average Peak Memory"
-                  unit="%"
-                  max={100}
-                />
+              <MetricUsage
+                value={
+                  Secondsessiondata.peak_memory_value !== undefined
+                    ? Secondsessiondata.peak_memory_value
+                    : 0
+                }
+                text="Average Peak Memory"
+                unit="%"
+                max={100}
+              />
               {/* </Link> */}
             </Grid>
             <Grid item xs={6} md={6}>
@@ -1081,16 +1086,16 @@ export default function SessionsMaincomp(props) {
                 to="/Sessions/:id/MetricAppPower"
                 style={{ textDecoration: "none" }}
               > */}
-                <MetricUsage
-                  value={
-                    Secondsessiondata.fps_stability !== undefined
-                      ? Secondsessiondata.fps_stability
-                      : 0
-                  }
-                  text="FPS Stability"
-                  unit="%"
-                  max={100}
-                />
+              <MetricUsage
+                value={
+                  Secondsessiondata.fps_stability !== undefined
+                    ? Secondsessiondata.fps_stability
+                    : 0
+                }
+                text="FPS Stability"
+                unit="%"
+                max={100}
+              />
               {/* </Link> */}
             </Grid>
           </Grid>

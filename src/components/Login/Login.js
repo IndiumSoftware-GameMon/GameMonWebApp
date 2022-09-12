@@ -86,8 +86,8 @@ const Login = () => {
         .post("/login", loginData)
         .then((response) => {
           console.log(response.data);
-          auth.settinguserInfo(response.data);
-          auth.login();
+          // auth.settinguserInfo(response.data);
+          auth.login(response.data);
           console.log(userInfo, "userInfo");
           console.log(response.data.token, "token");
           navigate("/");

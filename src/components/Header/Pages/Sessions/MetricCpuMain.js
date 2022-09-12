@@ -18,6 +18,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
+
 const drawerWidth = 0;
 const Plot = createPlotlyComponent(Plotly);
 const Styles = makeStyles((theme) => ({
@@ -131,6 +132,8 @@ const Styles = makeStyles((theme) => ({
 
 export default function SessionsMaincomp(props) {
   const classes = Styles();
+  const navigate = useNavigate();
+
   const location = useLocation();
   const auth = useContext(AuthContext);
   const [openForm, setOpenForm] = React.useState(false);
@@ -237,8 +240,7 @@ export default function SessionsMaincomp(props) {
       sortable: false,
       width: 160,
       valueGetter: (params) =>
-        `${params.getValue(params.id, "firstName") || ""} ${
-          params.getValue(params.id, "lastName") || ""
+        `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""
         }`,
     },
   ];
@@ -255,29 +257,20 @@ export default function SessionsMaincomp(props) {
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
   ];
 
+  function backButton() {
+    navigate("/")
+  }
+
   return (
     <>
       <main className={clsx(classes.content)}>
         <div className={classes.drawerHeader} />
         <div>
-          <Button
-            component={Link}
-            to="/"
-            variant="contained"
-            color="primary"
-            style={{
-              marginLeft: "92%",
-              marginTop:"-5%",
-              color: "#FFFFFF",
-              background: "#278EF1",
-              borderRadius: "10px",
-            }}
-            startIcon={<ArrowBackIosNewIcon />}
-          >
+          <button onClick={backButton}>
             Back
-          </Button>
+          </button>
         </div>
-        <div className={classes.grids}  style={{padding:"50px"}}>
+        <div className={classes.grids} style={{ padding: "50px" }}>
           <div>
             <Grid container spacing={4} direction="column">
               <Grid item xs={9} md={9}>
@@ -339,21 +332,21 @@ export default function SessionsMaincomp(props) {
                           <PhoneAndroidIcon sx={{ fontSize: 55 }} />
 
                           <ListItemText
-                          primary={
+                            primary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
-                              {global.sessionname}
+                                {global.sessionname}
                               </Typography>
                             }
                             secondary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
                                 {global.appname}
