@@ -30,7 +30,6 @@ export const AuthContextProvider = (props) => {
     setToken(null);
     // sessionStorage.removeItem("token");
     sessionStorage.removeItem("token")
-
   };
   const usersInfo = (data) => {
     setUserInfo(data);

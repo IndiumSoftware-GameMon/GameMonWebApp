@@ -312,7 +312,10 @@ export default function SessionsMaincomp(props) {
   React.useEffect(()=>{ 
     const valuesToSave = {Firstdevicedata,Seconddevicedata,Firstsessiondata,Secondsessiondata}
     window.localStorage.setItem("sessiondata",JSON.stringify(valuesToSave))
+
   })
+
+    // window.localStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
 
   function singleDeviceItem(e, data, id) {
     console.log(e.target, data, "eeeeeee");
