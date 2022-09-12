@@ -107,21 +107,9 @@ const Styles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    // marginLeft: -drawerWidth,
-    // [theme.breakpoints.down("md")]: {
-    //   transition: "none",
-    // },
+
   },
-  // contentShift: {
-  //   transition: theme.transitions.create("margin", {
-  //     easing: theme.transitions.easing.easeOut,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   marginLeft: 0,
-  //   [theme.breakpoints.down("md")]: {
-  //     marginLeft: -drawerWidth,
-  //   },
-  // },
+
   emailicon: {
     display: "flex",
     alignItems: "left",
@@ -167,113 +155,47 @@ const Styles = makeStyles((theme) => ({
   },
 }));
 
-export default function SessionsMaincomp(props) {
+var mapObj = {
+  com: " ",
+  ".oneplus": " ",
+  ".qualcomm": " ",
+  ".android": " ",
+  ".display": " ",
+  ".google": " ",
+  ".tools": " ",
+  ".internal": " ",
+  ".emulation": " ",
+  ".network": " ",
+  ".dragonfistztamilan": " ",
+};
+
+export default function Home(props) {
   const classes = Styles();
-  const location = useLocation();
   const auth = useContext(AuthContext);
-  const [openForm, setOpenForm] = React.useState(false);
-  const [openMetric, setOpenMetric] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const prevOpen = React.useRef(openMetric);
   const [Firstsessiondata, SetFirstsessiondata] = React.useState([]);
   const [Secondsessiondata, SetSecondsessiondata] = React.useState([]);
-
-  const [alignment, setAlignment] = React.useState("web");
   const [selecteditem, setSelecteditem] = React.useState("yellow");
-  const [flag, setFlag] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const open = Boolean(anchorEl);
-
   const [ApplicationActive, setApplicationActive] = useState(false);
   const [DevicesActive, setDevicesActive] = useState(false);
   const [SessionsActive, setSessionsActive] = useState(false);
   const [DateActive, setDateActive] = useState(false);
-
   const [application, setApplication] = useState("Application");
   const [devices, setDevices] = useState("Devices");
   const [sessions, setSessions] = useState("Sessions");
   const [date, setDate] = useState("Date");
-
   const [Firstdevicedata, SetFirstdevicedata] = React.useState([]);
   const [Seconddevicedata, SetSeconddevicedata] = React.useState([]);
   const [selectedDeviceitem, setSelectedDeviceitem] = React.useState("yellow");
   const [selectedappitem, setSelectedappitem] = React.useState("yellow");
   const [selectedDevice, setSelectedDevice] = React.useState("");
   const [selectedsessionitem, setSelectedApplicationitem] = React.useState([]);
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  let a = '"2022-07-01"';
-  let b = '"2022-07-17"';
-
-  const [value, setValue] = React.useState([null, null]);
-
-  function handleBlur(e) {
-    console.log(e);
-  }
-
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClick = () => {
-    setFlag(!flag);
-  };
-
-  const [age, setAge] = React.useState("");
-
-  function ApplicationhandleChange(event) {
-    setApplication(event.target.value);
-  }
-  function DeviceshandleChange(event) {
-    setDevices(event.target.value);
-  }
-  function SessionshandleChange(event) {
-    setSessions(event.target.value);
-  }
-  function DatehandleChange(event) {
-    setDate(event.target.value);
-  }
-
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = "0" + dd;
-  }
-  if (mm < 10) {
-    mm = "0" + mm;
-  }
-  today = yyyy + "-" + mm + "-" + dd;
-  console.log(today);
-
-  React.useEffect(() => {
-    if (prevOpen.current === true && openMetric === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = openMetric;
-  }, [openMetric]);
-
-  const handleClickOpen = () => {
-    setOpenForm(true);
-  };
-
 
 
   React.useEffect(() => {
+    let isMount = true;
     axios
       .get("/devices", {
         params: {
@@ -291,16 +213,21 @@ export default function SessionsMaincomp(props) {
         console.log(res.data);
         console.log(res.data.device_id);
         console.log(res.data.device_name);
-        SetFirstdevicedata(res.data.data);
+        if(isMount) {
+          SetFirstdevicedata(res.data.data);
+        }
         global.device_name = res.data.device_name;
       })
       .catch((err) => {
         console.log(err, "errorr");
       });
+      return () => {
+        isMount = false;
+      }
   }, [startDate, endDate]);
 
   React.useEffect(() => {
-    const sessionData = window.localStorage.getItem("sessiondata");
+    const sessionData = window.sessionStorage.getItem("sessiondata");
     const savedValues = JSON.parse(sessionData);
     // updateSessionValues(savedValues.Firstdevicedata);
     SetFirstdevicedata(savedValues.Firstdevicedata);
@@ -311,9 +238,10 @@ export default function SessionsMaincomp(props) {
 
   React.useEffect(() => {
     const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata }
-    window.localStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
+    window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
 
   })
+                            
 
   // window.sessionStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
 
@@ -589,7 +517,12 @@ export default function SessionsMaincomp(props) {
                   }}
                   className="item"
                 >
-                  {data.app_name}
+                {data.app_name.replace(
+                              /com|.qualcomm|.oneplus|.android|.display|.google|.tools|.internal|.emulation|.dragonfistztamilan|.network/gi,
+                              function (matched) {
+                                return mapObj[matched];
+                              }
+                            )}
                 </div>
               ))}
             </div>
