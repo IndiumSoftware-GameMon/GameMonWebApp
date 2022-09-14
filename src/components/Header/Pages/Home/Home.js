@@ -234,10 +234,15 @@ export default function Home(props) {
     SetSeconddevicedata(savedValues.Seconddevicedata);
     SetFirstsessiondata(savedValues.Firstsessiondata)
     SetSecondsessiondata(savedValues.Secondsessiondata)
+    setStartDate(savedValues.startDate)
+    setEndDate(savedValues.endDate)
+    setDevices(savedValues.devices)
+    setApplication(savedValues.application)
+    setSessions(savedValues.sessions)
   }, []);
 
   React.useEffect(() => {
-    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata }
+    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata,date,devices,application,sessions,startDate,endDate }
     window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
 
   })
@@ -480,6 +485,7 @@ export default function Home(props) {
                     className="item"
                   >
                     {data.device_name}
+                    {console.log(devices)}
                   </div>
                 ))}
             </div>
@@ -634,41 +640,8 @@ export default function Home(props) {
                   </div>
 
 
-                  <br />
 
-                  {/* <div
-                    className="device-info-style"
-                    style={{ marginTop: "-60px" }}
-                  >
-                    <div className="device-info-sub">
-                      <div>
-                        <img
-                          src={Version}
-                          alt=" "
-                          className="device-info-image"
-                        />
-                      </div>
-                      <div className="device-info-text">
-                        <p style={{ fontSize: "12px", fontWeight: "300" }}>
-                          {props.androidVersion}
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "15px",
-                            fontWeight: "300",
-                            marginTop: "-66px",
-                            marginLeft: "45px",
-                          }}
-                        >
-                          {Secondsessiondata.version_name}
-                        </p>
-                        <p style={{ marginTop: "-8px", marginLeft: "43px" }}>
-                          {" "}
-                          Version
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
+               
 
                   <div className="device-info-style-list">
                     <List
@@ -720,7 +693,7 @@ export default function Home(props) {
                     </List>
                   </div>
 
-                  <br></br>
+    
                   <div className="device-info-style-list">
                     <List
                       style={{
