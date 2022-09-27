@@ -1,6 +1,6 @@
 import Header from "./components/Header/Header";
 import Home from "./components/Header/Pages/Home/Home";
-import Apps from "./components/Header/Pages/Apps/Apps";
+import Admin from "./components/Header/Pages/Admin/Admin";
 import Projects from "./components/Header/Pages/Projects/Projects";
 import Sessionmain from "./components/Header/Pages/Sessions/Sessions";
 import Analysis from "./components/Header/Pages/Analysis/Analysis";
@@ -33,7 +33,7 @@ function App() {
           <Route path="/" element={[<Header />]}>
             <Route exact path="/Home" element={<Home />} />
             <Route path="/" element={<Navigate replace to="/Home" />} />
-            <Route exact path="/Apps" element={<Apps />} />
+            <Route exact path="/Admin" element={<Admin />} />
             <Route exact path="/Projects" element={<Projects />} />
             <Route path="/sessions/*" element={[<Sessionmain />]} />
             <Route exact path="/Analysis" element={<Analysis />} />

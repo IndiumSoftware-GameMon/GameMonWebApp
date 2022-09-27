@@ -56,7 +56,7 @@ const Header = (props) => {
   const [bgClr, setBgClr] = React.useState([]);
   // const Header = ["Home", "Projects", "Apps", "Devices", "Sessions", "Analysis"];
 
-  const Header = ["Home", "Projects"];
+  const Header = ["Home", "Projects" , "Admin"];
 
   // const Header = ["Home", "Sessions"];
 
@@ -151,9 +151,9 @@ const Header = (props) => {
                 <MenuItem
                   onClick={() => setAnchor(null)}
                   component={Link}
-                  to="/Apps/:id"
+                  to="/Admin/:id"
                 >
-                  <Typography variant="h6"> Apps</Typography>
+                  <Typography variant="h6"> Admin</Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => setAnchor(null)}
@@ -287,7 +287,7 @@ const Header = (props) => {
               aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
             >
-              <Avatar sx={{ bgcolor: blue[500], ml: 230 }}></Avatar>
+              <Avatar sx={{ bgcolor: blue[500], ml: 220 }}></Avatar>
             </IconButton>
             <button
               onClick={logoutHandler}
