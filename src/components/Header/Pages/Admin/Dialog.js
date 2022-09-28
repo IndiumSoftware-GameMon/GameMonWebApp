@@ -30,8 +30,8 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
          <form>
              <TextField id="name" value={name} onChange={e=>onChange(e)} placeholder="Enter name" label="Name" variant="outlined" margin="dense" fullWidth />
              <TextField id="email" value={email} onChange={e=>onChange(e)} placeholder="Enter email" label="Email" variant="outlined" margin="dense" fullWidth />
-             <TextField id="phone" value={phone} onChange={e=>onChange(e)} placeholder="Enter phone number" label="Phone Number" variant="outlined" margin="dense" fullWidth />
-             <TextField id="dob" value={dob} onChange={e=>onChange(e)} placeholder="Enter Date of birth" label="Date of Birth" variant="outlined" margin="dense" fullWidth />
+             <TextField id="phone" value={phone} onChange={e=>onChange(e)} placeholder="Enter Role" label="Role" variant="outlined" margin="dense" fullWidth />
+             <TextField id="dob" value={dob} onChange={e=>onChange(e)} placeholder="Enter Joining Date " label="Joining Date " variant="outlined" margin="dense" fullWidth />
          </form>
         </DialogContent>
         <DialogActions>

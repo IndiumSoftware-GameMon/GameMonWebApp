@@ -1,208 +1,275 @@
-import React, { useState, useEffect } from "react";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { Grid, Button } from "@material-ui/core";
-import FormDialog from "./Dialog";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import React from "react";
+import Drawer from "@material-ui/core/Drawer";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
+import IconButton from "@material-ui/core/IconButton";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import AppBar from "@material-ui/core/AppBar";
+import clsx from "clsx";
+import Toolbar from "@material-ui/core/Toolbar";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Paper from "@material-ui/core/Paper";
+import { useParams, Link } from "react-router-dom";
+import Button from "@mui/material/Button";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Checkbox from "@mui/material/Checkbox";
+import Grow from "@mui/material/Grow";
+import Popper from "@mui/material/Popper";
+import MenuItem from "@mui/material/MenuItem";
+import MenuList from "@mui/material/MenuList";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import BatterySaverIcon from "@mui/icons-material/BatterySaver";
+import SignalCellularAltIcon from "@mui/icons-material/SignalCellularAlt";
+import WifiIcon from "@mui/icons-material/Wifi";
+import LayersIcon from "@mui/icons-material/Layers";
+import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoard";
+import VibrationIcon from "@mui/icons-material/Vibration";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { Routes, Route } from "react-router-dom";
+import AdminMain from "./AdminMain.js";
+// import MetricPower from "./metricPower.js";
+// import MetricFps from "./MetricFpsMain.js";
+// import MetricCpuMain from "./MetricCpuMain.js";
+// import MetricGpuMain from "./MetricGpuMain.js";
+// import MetricFpsMain from "./MetricFpsMain.js";
+// import MetricMemory from "./MetricMemory";
+// import MetricNetwork from "./MetricNetwork";
+// import MetricLatency from "./MetricLatency";
+// import DrawerComp from "./DrawerComp";
+// import Markers from "./Markers.js";
+import axios from "axios";
+import auth from "../../../../hooks/useAuth";
 import { Typography } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
-import "./Admin.css"
+import Grid from "@material-ui/core/Grid";
+// import AdvancedSearch from "./AdvancedSearch.js";
 
+const drawerWidth = 0;
 
-const initialValue = { name: "", email: "", phone: "", dob: "" };
-function App() {
-  const [gridApi, setGridApi] = useState(null);
-  const [tableData, setTableData] = useState(null);
+const Styles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    marginTop: 55,
+  },
+  appBar: {
+    marginTop: 55,
+    backgroundColor: "white",
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  appNav: {
+    display: "flex",
+    color: "black",
+    marginLeft: "auto",
+    "& h3": {
+      marginRight: 1,
+    },
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    marginTop: 55,
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  },
+
+  emailicon: {
+    display: "flex",
+    alignItems: "left",
+    flexWrap: "wrap",
+    width: "50%",
+  },
+  userInfo: {
+    display: "grid",
+    gridTemplateColumns: "auto auto",
+  },
+  paper1: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 200,
+  },
+  paper2: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 130,
+  },
+  paper3: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 500,
+  },
+  paper4: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 150,
+  },
+
+  grids: {
+    display: "flex",
+    flexGrow: 1,
+    "& div": {
+      width: "100%",
+    },
+  },
+  dialog: {
+    width: 800,
+    height: 900,
+  },
+}));
+
+export default function AdminHeader() {
+  let params = useParams();
+  const classes = Styles();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [formData, setFormData] = useState(initialValue);
-  const handleClickOpen = () => {
+  const [openForm, setOpenForm] = React.useState(false);
+  const [openMetric, setOpenMetric] = React.useState(false);
+  const anchorRef = React.useRef(null);
+  const [Firstsessiondata, SetFirstsessiondata] = React.useState([]);
+  const [Secondsessiondata, SetSecondsessiondata] = React.useState([]);
+  const isMatch = useMediaQuery("(min-width:400px)");
+  console.log(auth.token, "sessions page");
+  console.log(auth, "auth");
+  const handleToggle = () => {
+    setOpenMetric((prevOpen) => !prevOpen);
+  };
+
+  const handleCloseMetric = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpenMetric(false);
+  };
+
+  function handleListKeyDown(event) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpenMetric(false);
+    } else if (event.key === "Escape") {
+      setOpenMetric(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = React.useRef(openMetric);
+  React.useEffect(() => {
+    if (prevOpen.current === true && openMetric === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = openMetric;
+  }, [openMetric]);
+
+
+
+ 
+
+  const handleClose = () => {
+    setOpenForm(false);
+  };
+
+  const handleDrawerOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleDrawerClose = () => {
     setOpen(false);
-    setFormData(initialValue);
-  };
-  const url = `http://localhost:4000/users`;
-  const columnDefs = [
-    { headerName: "ID", field: "id" },
-    { headerName: "Name", field: "name" },
-    { headerName: "Email", field: "email" },
-    { headerName: "phone", field: "phone" },
-    { headerName: "Date of Birth", field: "dob" },
-    {
-      headerName: "Actions",
-      field: "id",
-      cellRendererFramework: (params) => (
-        <div>
-          <EditIcon
-            variant="outlined"
-            color="primary"
-            style={{margin:"10px"}}
-            onClick={() => handleUpdate(params.data)}
-          ></EditIcon>
-          <DeleteIcon
-            variant="outlined"
-            color="secondary"
-            style={{margin:"10px"}}
-            onClick={() => handleDelete(params.value)}
-          ></DeleteIcon>
-        </div>
-      ),
-    },
-  ];
-  // calling getUsers function for first time
-  useEffect(() => {
-    getUsers();
-  }, []);
-
-  //fetching user data from server
-  const getUsers = () => {
-    fetch(url)
-      .then((resp) => resp.json())
-      .then((resp) => setTableData(resp));
-  };
-  const onChange = (e) => {
-    const { value, id } = e.target;
-    // console.log(value,id)
-    setFormData({ ...formData, [id]: value });
-  };
-  const onGridReady = (params) => {
-    setGridApi(params);
-  };
-
-  // setting update row data to form data and opening pop up window
-  const handleUpdate = (oldData) => {
-    setFormData(oldData);
-    handleClickOpen();
-  };
-  //deleting a user
-  const handleDelete = (id) => {
-    const confirm = window.confirm(
-      "Are you sure, you want to delete this row",
-      id
-    );
-    if (confirm) {
-      fetch(url + `/${id}`, { method: "DELETE" })
-        .then((resp) => resp.json())
-        .then((resp) => getUsers());
-    }
-  };
-  const handleFormSubmit = () => {
-    if (formData.id) {
-      //updating a user
-      const confirm = window.confirm(
-        "Are you sure, you want to update this row ?"
-      );
-      confirm &&
-        fetch(url + `/${formData.id}`, {
-          method: "PUT",
-          body: JSON.stringify(formData),
-          headers: {
-            "content-type": "application/json",
-          },
-        })
-          .then((resp) => resp.json())
-          .then((resp) => {
-            handleClose();
-            getUsers();
-          });
-    } else {
-      // adding new user
-      fetch(url, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "content-type": "application/json",
-        },
-      })
-        .then((resp) => resp.json())
-        .then((resp) => {
-          handleClose();
-          getUsers();
-        });
-    }
-  };
-
-  const defaultColDef = {
-    sortable: true,
-    flex: 1,
-    filter: true,
-    floatingFilter: true,
   };
   return (
-    <>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+    <div className={classes.root}>
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+        style={{ backgroundColor: "#278EF1" }}
+      >
+        <Toolbar>
+          {isMatch ? (
+            <>
+              <Link to="/AdminHeader" style={{ textDecoration: "none" }}>
+                <h3>
+                  <Grid container justify="flex-end">
+                    <Button id="composition-button" style={{ color: "#FFFFFF" }}>User</Button>
+                  </Grid>
 
-      <Grid align="right">
-        <List
-          onClick={handleClickOpen}>
-          <div
-            style={{
-              color: "#FFFFFF",
-              background: "#278EF1",
-              borderRadius: "30px",
-              width:"150px",
-              marginRight:"170px"
-            }}
-          >
-            <ListItem button>
-              <AddIcon/>
+                </h3>
+              </Link>
+              <Link to="/Sessions/:id/" style={{ textDecoration: "none" }}>
+                <h3>
+                  <Grid container justify="flex-end">
+                    <Button id="composition-button" style={{ color: "#FFFFFF" }}>Project</Button>
+                  </Grid>
 
-              <ListItemText
-                primary={
-                  <Typography
-                    type="body2"
-                    style={{
-                      color: "white",
-                      marginLeft: "15px",
-                    }}
-                  >
-              Add user
-                  </Typography>
-                }
-              ></ListItemText>
-            </ListItem>
-          </div>
-        </List>
+                </h3>
+              </Link>
+              <Link to="/Sessions/:id/" style={{ textDecoration: "none" }}>
+                <h3>
+                  <Grid container justify="flex-end">
+                    <Button id="composition-button" style={{ color: "#FFFFFF" }}>License</Button>
+                  </Grid>
 
+                </h3>
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
 
-
-        
-      </Grid>
-
-
-      <div className="ag-theme-alpine" style={{ height: "300px" , width: "1225px" ,paddingLeft:"150px" }}>
-        <AgGridReact
-          rowData={tableData}
-          columnDefs={columnDefs}
-          // defaultColDef={defaultColDef}
-          onGridReady={onGridReady}
+        </Toolbar>
+      </AppBar>
+    
+      <Routes>
+        <Route path="/" element={[<AdminMain open={open} />]} />
+        {/* <Route
+          path="/:id/advancedsearch"
+          element={[<AdvancedSearch open={open} />]}
         />
-      </div>
-
-      <FormDialog
-        open={open}
-        handleClose={handleClose}
-        data={formData}
-        onChange={onChange}
-        handleFormSubmit={handleFormSubmit}
-      />
-    </>
+        <Route path="/:id/fps" element={[<MetricFpsMain open={open} />]} />
+        <Route path="/:id/power" element={[<MetricPower open={open} />]} />
+        <Route path="/:id/cpu" element={[<MetricCpuMain open={open} />]} />
+        <Route path="/:id/gpu" element={[<MetricGpuMain open={open} />]} />
+        <Route path="/:id/memory" element={[<MetricMemory open={open} />]} />
+        <Route path="/:id/network" element={[<MetricNetwork open={open} />]} />
+        <Route path="/:id/latency" element={[<MetricLatency open={open} />]} />
+        <Route path="/:id/markers" element={[<Markers open={open} />]} /> */}
+      </Routes>
+    </div>
   );
 }
-
-export default App;

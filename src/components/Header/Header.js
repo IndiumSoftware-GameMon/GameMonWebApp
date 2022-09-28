@@ -188,87 +188,12 @@ const Header = (props) => {
                     component={Link}
                     to={`${data}`}
                     color="#232323"
-                  // onClick={AnnualHandler} style={bgClr}
                   >
                     {data}
                   </Button>)
-              }
-                // {console.log(data, "working")}
-
-
-
-                // <Button
-                //   variant="text"
-                //   component={Link}
-                //   to="/Home"
-                //   color="#232323"
-                //   onClick={AnnualHandler} style={bgClr}
-                // >
-                //   {data}
-                // </Button>
-
-
+              }      
               )
-
               }
-
-              {/* <ThemeProvider theme={buttonTheme}>
-                <Button
-                  variant="text"
-                  component={Link}
-                  to="/Projects"
-                  color="#232323"
-                  style={{ fontSize: "16px" }}
-                >
-                  Projects
-                </Button>
-              </ThemeProvider>
-              <ThemeProvider theme={buttonTheme}>
-                <Button
-                  variant="text"
-                  component={Link}
-                  to="/Apps"
-                  color="#232323"
-                  style={{ fontSize: "16px" }}
-                >
-                  Apps
-                </Button>
-              </ThemeProvider>
-              <ThemeProvider theme={buttonTheme}>
-                <Button
-                  variant="text"
-                  component={Link}
-                  to="/getdevices"
-                  color="#232323"
-                  style={{ fontSize: "16px" }}
-                >
-                  Devices
-                </Button>
-              </ThemeProvider>
-              <ThemeProvider theme={buttonTheme}>
-                <Button
-                  variant="text"
-                  component={Link}
-                  to="/Sessions"
-                  color="#232323"
-                  style={{ fontSize: "16px" }}
-                >
-                  Sessions
-                </Button>
-              </ThemeProvider>
-              <ThemeProvider theme={buttonTheme}>
-                <Button
-                  variant="text"
-                  component={Link}
-                  to="/Analysis"
-                  color="#232323"
-                  style={{ fontSize: "16px" }}
-                >
-                  Analysis
-                </Button>
-              </ThemeProvider> */}
-
-
             </div>
           )
           }

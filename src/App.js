@@ -35,6 +35,7 @@ function App() {
             <Route path="/" element={<Navigate replace to="/Home" />} />
             <Route exact path="/Admin" element={<Admin />} />
             <Route exact path="/Projects" element={<Projects />} />
+            <Route path="/Admin/*" element={[<Admin />]} />
             <Route path="/sessions/*" element={[<Sessionmain />]} />
             <Route exact path="/Analysis" element={<Analysis />} />
           </Route>
