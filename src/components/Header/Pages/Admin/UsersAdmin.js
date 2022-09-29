@@ -17,7 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 function App() {
   
-  const initialValue = { name: "", email: "", phone: "", dob: "" };
+  const initialValue = { name: "", email: "", role: "", dob: "" };
   const [gridApi, setGridApi] = useState(null);
   const [tableData, setTableData] = useState(null);
   const [open, setOpen] = React.useState(false);
@@ -35,7 +35,7 @@ function App() {
     { headerName: "ID", field: "id" },
     { headerName: "Name", field: "name" },
     { headerName: "Email", field: "email" },
-    { headerName: "Role", field: "phone" },
+    { headerName: "Role", field: "role" },
     { headerName: "Joined", field: "dob" },
     {
       headerName: "Actions",
@@ -139,7 +139,8 @@ function App() {
   };
   return (
     <>
-  
+     <br></br>
+     <br></br>
       <Grid align="right">
         <List
           onClick={handleClickOpen}>
@@ -170,13 +171,9 @@ function App() {
               ></ListItemText>
             </ListItem>
           </div>
-        </List>
-
-
-
-        
+        </List>       
       </Grid>
-
+<br></br>
 
       <div className="ag-theme-alpine" style={{ height: "300px" , width: "1225px" ,paddingLeft:"150px" }}>
         <AgGridReact

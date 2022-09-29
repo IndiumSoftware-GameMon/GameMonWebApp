@@ -223,26 +223,26 @@ export default function AdminHeader() {
         <Toolbar>
           {isMatch ? (
             <>
-              <Link to="/AdminHeader" style={{ textDecoration: "none" }}>
+              <Link to="/Admin" style={{ textDecoration: "none" }}>
                 <h3>
-                  <Grid container justify="flex-end">
-                    <Button id="composition-button" style={{ color: "#FFFFFF" }}>User</Button>
+                  <Grid>
+                    <Button id="composition-button" style={{ color: "#FFFFFF",width:"86px" }}>User</Button>
                   </Grid>
 
                 </h3>
               </Link>
-              <Link to="/Sessions/:id/" style={{ textDecoration: "none" }}>
+              <Link to="/Admin/Project" style={{ textDecoration: "none" }}>
                 <h3>
-                  <Grid container justify="flex-end">
-                    <Button id="composition-button" style={{ color: "#FFFFFF" }}>Project</Button>
+                  <Grid>
+                    <Button id="composition-button" style={{ color: "#FFFFFF",width:"86px" }}>Project</Button>
                   </Grid>
 
                 </h3>
               </Link>
-              <Link to="/Sessions/:id/" style={{ textDecoration: "none" }}>
+              <Link to="/Admin" style={{ textDecoration: "none" }}>
                 <h3>
-                  <Grid container justify="flex-end">
-                    <Button id="composition-button" style={{ color: "#FFFFFF" }}>License</Button>
+                  <Grid>
+                    <Button id="composition-button" style={{ color: "#FFFFFF",width:"86px" }}>License</Button>
                   </Grid>
 
                 </h3>

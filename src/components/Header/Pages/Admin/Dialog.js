@@ -12,11 +12,18 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit}) {
- const {id,name,email,phone,dob}=data
-
+ const {id,name,email,role,dob}=data
+ const [age, setAge] = React.useState("");
+ const handleChange = (event) => {
+  setAge(event.target.value);
+};
   return (
     <div>
       <Dialog
@@ -30,7 +37,16 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
          <form>
              <TextField id="name" value={name} onChange={e=>onChange(e)} placeholder="Enter name" label="Name" variant="outlined" margin="dense" fullWidth />
              <TextField id="email" value={email} onChange={e=>onChange(e)} placeholder="Enter email" label="Email" variant="outlined" margin="dense" fullWidth />
-             <TextField id="phone" value={phone} onChange={e=>onChange(e)} placeholder="Enter Role" label="Role" variant="outlined" margin="dense" fullWidth />
+
+      {/* <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+        <Select value={age} label="Age" onChange={handleChange}>
+          <MenuItem value={10}>Manager</MenuItem>
+          <MenuItem value={10}>Tester</MenuItem>
+        </Select>
+      </FormControl> */}
+
+             <TextField id="role" value={role} onChange={e=>onChange(e)} placeholder="Enter Role" label="Role" variant="outlined" margin="dense" fullWidth />
              <TextField id="dob" value={dob} onChange={e=>onChange(e)} placeholder="Enter Joining Date " label="Joining Date " variant="outlined" margin="dense" fullWidth />
          </form>
         </DialogContent>
