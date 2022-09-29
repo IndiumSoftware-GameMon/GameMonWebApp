@@ -19,7 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit}) {
- const {id,name,email,role,dob}=data
+ const {id,name,email,password,phonenumber,role,license_start_date,days}=data
  const [age, setAge] = React.useState("");
  const handleChange = (event) => {
   setAge(event.target.value);
@@ -35,19 +35,13 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
         <DialogTitle id="alert-dialog-title">{id?"Update user":"Create new user"}</DialogTitle>
         <DialogContent>
          <form>
-             <TextField id="name" value={name} onChange={e=>onChange(e)} placeholder="Enter name" label="Name" variant="outlined" margin="dense" fullWidth />
-             <TextField id="email" value={email} onChange={e=>onChange(e)} placeholder="Enter email" label="Email" variant="outlined" margin="dense" fullWidth />
-
-      {/* <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-        <Select value={age} label="Age" onChange={handleChange}>
-          <MenuItem value={10}>Manager</MenuItem>
-          <MenuItem value={10}>Tester</MenuItem>
-        </Select>
-      </FormControl> */}
-
-             <TextField id="role" value={role} onChange={e=>onChange(e)} placeholder="Enter Role" label="Role" variant="outlined" margin="dense" fullWidth />
-             <TextField id="dob" value={dob} onChange={e=>onChange(e)} placeholder="Enter Joining Date " label="Joining Date " variant="outlined" margin="dense" fullWidth />
+             <TextField id="name" value={name} onChange={e=>onChange(e)} placeholder="Enter name" label="Name" variant="outlined" style={{marginLeft:"5%"}} margin="dense"/>
+             <TextField id="email" value={email} onChange={e=>onChange(e)} placeholder="Enter email" label="Email" variant="outlined" style={{marginLeft:"10%"}} margin="dense"/>
+             <TextField id="password" value={password} onChange={e=>onChange(e)} placeholder="Enter password" label="Password" variant="outlined" style={{marginLeft:"5%"}} margin="dense"/>
+             <TextField id="phonenumber" value={phonenumber} onChange={e=>onChange(e)} placeholder="Enter phonenumber " label="phoneNumber" style={{marginLeft:"10%"}} variant="outlined" margin="dense"/>
+             <TextField id="role" value={role} onChange={e=>onChange(e)} placeholder="Enter Role " label="Role " variant="outlined" style={{marginLeft:"5%"}} margin="dense"/>
+             <TextField id="license_start_date" value={license_start_date} onChange={e=>onChange(e)} placeholder="Enter license_start_date " label="license_start_date " variant="outlined" style={{marginLeft:"10%"}} margin="dense"/>
+             <TextField id="days" value={days} onChange={e=>onChange(e)} placeholder="Enter days " label="days " variant="outlined" style={{marginLeft:"5%"}} margin="dense"/>
          </form>
         </DialogContent>
         <DialogActions>
@@ -86,3 +80,15 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
     </div>
   );
 }
+
+
+
+
+
+      {/* <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+        <Select value={age} label="Age" onChange={handleChange}>
+          <MenuItem value={10}>Manager</MenuItem>
+          <MenuItem value={10}>Tester</MenuItem>
+        </Select>
+      </FormControl> */}
