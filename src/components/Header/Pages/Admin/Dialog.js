@@ -17,6 +17,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Divider } from "@mui/material";
+
 
 export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit}) {
  const {id,name,email,password,phonenumber,role,license_start_date,days}=data
@@ -33,6 +35,7 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">{id?"Update user":"Create new user"}</DialogTitle>
+        <Divider />
         <DialogContent>
          <form>
              <TextField id="name" value={name} onChange={e=>onChange(e)} placeholder="Enter name" label="Name" variant="outlined" style={{marginLeft:"5%"}} margin="dense"/>
@@ -44,7 +47,9 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
              <TextField id="days" value={days} onChange={e=>onChange(e)} placeholder="Enter days " label="days " variant="outlined" style={{marginLeft:"5%"}} margin="dense"/>
          </form>
         </DialogContent>
+        <Divider />
         <DialogActions>
+          
         <List
           onClick={handleClose}>
           <div

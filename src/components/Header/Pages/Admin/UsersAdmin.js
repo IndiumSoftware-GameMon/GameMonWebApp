@@ -78,13 +78,13 @@ const columnDefs = [
           variant="outlined"
           color="primary"
           style={{margin:"10px"}}
-          onClick={() => handleUpdate(params.data)}
+          // onClick={() => handleUpdate(params.data)}
         ></EditIcon>
         <DeleteIcon
           variant="outlined"
           color="secondary"
           style={{margin:"10px"}}
-          onClick={() => handleDelete(params.value)}
+          // onClick={() => handleDelete(params.value)}
         ></DeleteIcon>
       </div>
     ),
@@ -214,7 +214,7 @@ const columnDefs = [
           rowData={rowData}
           columnDefs={columnDefs}
           // defaultColDef={defaultColDef}
-          onGridReady={onGridReady}
+          // onGridReady={onGridReady}
         />
       </div>
 
