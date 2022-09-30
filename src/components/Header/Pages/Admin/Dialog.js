@@ -18,7 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Divider } from "@mui/material";
-
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function FormDialog({open,handleClose,data,onChange,handleFormSubmit}) {
  const {id,name,email,password,phonenumber,role,license_start_date,days}=data
@@ -34,7 +34,8 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{id?"Update user":"Create new user"}</DialogTitle>
+        <CloseIcon onClick={handleClose} style={{marginLeft:"93%",marginTop:"2%",cursor:"pointer"}}/>
+        <DialogTitle style={{marginLeft:"5%"}} id="alert-dialog-title">{id?"Edit User":"User Details"}</DialogTitle>
         <Divider />
         <DialogContent>
          <form>
@@ -48,15 +49,31 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
          </form>
         </DialogContent>
         <Divider />
-        <DialogActions>
-          
+        <DialogActions style={{marginLeft:"5%",display: "flex",justifyContent: "flex-start"}}>
+     
+        <List
+      onClick={()=>handleFormSubmit()}>
+          <div
+            style={{
+              color: "#FFFFFF",
+              background: "#278EF1",
+              borderRadius: "20px",
+            }}
+          >
+            <ListItem button onClick={handleClose} color="secondary" variant="outlined">
+            {id?"Update":"Save"}
+             
+            </ListItem>
+          </div>
+        </List>
+
         <List
           onClick={handleClose}>
           <div
             style={{
               color: "#FFFFFF",
               background: "#278EF1",
-              borderRadius: "8px",
+              borderRadius: "20px",
             }}
           >
             <ListItem button onClick={handleClose} color="secondary" variant="outlined">
@@ -65,21 +82,6 @@ export default function FormDialog({open,handleClose,data,onChange,handleFormSub
           </div>
         </List>
 
-        <List
-      onClick={()=>handleFormSubmit()}>
-          <div
-            style={{
-              color: "#FFFFFF",
-              background: "#278EF1",
-              borderRadius: "8px",
-            }}
-          >
-            <ListItem button onClick={handleClose} color="secondary" variant="outlined">
-            {id?"Update":"Submit"}
-             
-            </ListItem>
-          </div>
-        </List>
         </DialogActions>
       </Dialog>
     </div>

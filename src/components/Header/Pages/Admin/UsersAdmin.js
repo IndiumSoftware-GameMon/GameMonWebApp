@@ -77,13 +77,13 @@ const columnDefs = [
         <EditIcon
           variant="outlined"
           color="primary"
-          style={{margin:"10px"}}
+          style={{margin:"10px",cursor:"pointer"}}
           // onClick={() => handleUpdate(params.data)}
         ></EditIcon>
         <DeleteIcon
           variant="outlined"
           color="secondary"
-          style={{margin:"10px"}}
+          style={{margin:"10px",cursor:"pointer"}}
           // onClick={() => handleDelete(params.value)}
         ></DeleteIcon>
       </div>
