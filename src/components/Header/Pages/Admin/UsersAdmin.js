@@ -68,7 +68,7 @@ function App() {
     { headerName: "Name", field: "name" },
     { headerName: "Email", field: "email" },
     { headerName: "Role", field: "role" },
-    { headerName: "StartUser", field: "user_since" },
+    // { headerName: "StartUser", field: "user_since" },
     { headerName: "LicenseUser", field: "license_start_date" },
     { headerName: "Status", field: "status" },
     { headerName: "PhoneNumber", field: "phone_number" },
