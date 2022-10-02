@@ -19,6 +19,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import './Admin.css'
 
 export default function FormDialog({
   open,
@@ -53,8 +54,8 @@ export default function FormDialog({
           onClick={handleClose}
           style={{ marginLeft: "93%", marginTop: "2%", cursor: "pointer" }}
         />
-        <DialogTitle style={{ marginLeft: "5%" }} id="alert-dialog-title">
-          {id ? "Update User" : "Add User"}
+        <DialogTitle  style={{ marginLeft: "5%", fontSize:"50px" }} id="alert-dialog-title">
+          {id ? "Edit User" : "User Details"}
         </DialogTitle>
         <Divider />
         <DialogContent>
@@ -79,7 +80,7 @@ export default function FormDialog({
               style={{ marginLeft: "10%" }}
               margin="dense"
             />
-            {!id && (
+       
               <TextField
                 id="password"
                 value={password}
@@ -90,7 +91,7 @@ export default function FormDialog({
                 style={{ marginLeft: "5%" }}
                 margin="dense"
               />
-            )}
+         
             <TextField
               id="phone_number"
               value={phone_number}
@@ -129,7 +130,7 @@ export default function FormDialog({
               }}
               margin="dense"
             />
-            {!id && (
+        
               <TextField
                 id="days"
                 value={days}
@@ -140,7 +141,7 @@ export default function FormDialog({
                 style={{ marginLeft: "5%" }}
                 margin="dense"
               />
-            )}
+        
           </form>
         </DialogContent>
         <Divider />

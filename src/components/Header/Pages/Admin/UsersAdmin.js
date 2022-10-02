@@ -14,6 +14,10 @@ import AddIcon from "@mui/icons-material/Add";
 // import "./Admin.css"
 import axios from "../../../../axios/index";
 import { ContentPasteSearchOutlined } from "@mui/icons-material";
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
+
+
 
 function App() {
   const [users, SetUsers] = useState([]);
@@ -224,6 +228,15 @@ function App() {
           // defaultColDef={defaultColDef}
           // onGridReady={onGridReady}
         />
+           {/* <DataGrid
+        rows={rowData}
+        columns={columnDefs}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+        checkboxSelection
+        disableSelectionOnClick
+        experimentalFeatures={{ newEditingApi: true }}
+      /> */}
       </div>
 
       <FormDialog

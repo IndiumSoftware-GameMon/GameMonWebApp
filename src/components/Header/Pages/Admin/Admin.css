@@ -1,0 +1,14 @@
+.MuiTypography-h6 {
+    font-size: 1.25rem;
+    color:"black !important";
+    font-family: Verdana, sans-serif !important;
+    font-weight: 800 !important;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+.ag-theme-alpine .ag-root-wrapper {
+    border:solid 1px;
+    border-color: #babfc7;
+    border-color: var(--ag-border-color, #babfc7);
+    border-radius: 25px;
+}

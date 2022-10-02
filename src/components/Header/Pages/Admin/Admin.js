@@ -196,8 +196,6 @@ export default function AdminHeader() {
     prevOpen.current = openMetric;
   }, [openMetric]);
 
-
- 
   const handleClose = () => {
     setOpenForm(false);
   };
@@ -237,7 +235,7 @@ export default function AdminHeader() {
 
                 </h3>
               </Link>
-              <Link to="/Admin" style={{ textDecoration: "none" }}>
+              <Link to="/Admin/License" style={{ textDecoration: "none" }}>
                 <h3>
                   <Grid>
                     <Button id="composition-button" style={{ color: "#FFFFFF",width:"86px" }}>License</Button>
