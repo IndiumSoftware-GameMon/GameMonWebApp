@@ -183,7 +183,7 @@ const Header = (props) => {
 
               {Header.map((data, i) => {
                 return (
-                  <Button key={i} onClick={(e) => AnnualHandler(e, data, i)} sx={{ paddingTop: 0 }} style={{ color: selectedPage === i ? "#278ef1" : "", borderTop: selectedPage === i ? "2px solid #278ef1" : "", borderRadius: "0px" }}
+                  <Button key={i} onClick={(e) => AnnualHandler(e, data, i)} sx={{ paddingTop: 0 }} style={{ color: selectedPage === i ? "#278ef1" : "", borderTop: selectedPage === i ? "4px solid #278ef1" : "", borderRadius: "0px" }}
                     variant="text"
                     component={Link}
                     to={`${data}`}
