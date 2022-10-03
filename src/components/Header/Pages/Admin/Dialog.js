@@ -35,8 +35,7 @@ export default function FormDialog({
     password,
     phone_number,
     role,
-    license_start_date,
-    days,
+    access_end_date,
   } = data;
   const [age, setAge] = React.useState("");
   const handleChange = (event) => {
@@ -102,7 +101,15 @@ export default function FormDialog({
               variant="outlined"
               margin="dense"
             />
-            <TextField
+                 <FormControl style={{ marginLeft: "5%" , width: "38.3%" ,marginTop:"2%"}}>
+        <InputLabel id="demo-simple-select-label">Role</InputLabel>
+        <Select name="role" value={role} label="role" onChange={(e) => onChange(e)}>
+          <MenuItem value={10}>admin</MenuItem>
+          <MenuItem value={10}>tester</MenuItem>
+          <MenuItem value={10}>manager</MenuItem>
+        </Select>
+      </FormControl>
+            {/* <TextField
               id="role"
               value={role}
               onChange={(e) => onChange(e)}
@@ -111,15 +118,15 @@ export default function FormDialog({
               variant="outlined"
               style={{ marginLeft: "5%" }}
               margin="dense"
-            />
+            /> */}
             <TextField
-              id="license_start_date"
+              id="access_end_date"
               type="date"
-              label="Start Date"
-              value={license_start_date}
+              label="End Date"
+              value={access_end_date}
               onChange={(e) => onChange(e)}
               variant="outlined"
-              style={{ marginLeft: "10%" , width: "38%"}}
+              style={{ marginLeft: "10%" , width: "38%" ,marginTop:"2%"}}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -130,17 +137,8 @@ export default function FormDialog({
               }}
               margin="dense"
             />
-        
-              <TextField
-                id="days"
-                value={days}
-                onChange={(e) => onChange(e)}
-                placeholder="Enter days "
-                label="days "
-                variant="outlined"
-                style={{ marginLeft: "5%" }}
-                margin="dense"
-              />
+   
+            
         
           </form>
         </DialogContent>

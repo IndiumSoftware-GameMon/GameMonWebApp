@@ -12,6 +12,7 @@ export const AuthContextProvider = (props) => {
   const initialToken = sessionStorage.getItem("token");
   const [token, setToken] = useState(initialToken);
   const [userInfo, setUserInfo] = useState({});
+  const [role,setRole] = useState([]);
 
   console.log(userInfo, "auth");
   const userIsLoggedIn = !!token;
@@ -19,6 +20,7 @@ export const AuthContextProvider = (props) => {
   const loginHandler = (data) => {
     setUserInfo(data);
     setToken(data.token);
+    setRole(data.role)
     console.log(data, "userInfo")
     console.log(token)
     // sessionStorage.setItem("token", userInfo.token);
@@ -32,7 +34,7 @@ export const AuthContextProvider = (props) => {
   const logoutHandler = () => {
     setToken(null);
     // sessionStorage.removeItem("token");
-    sessionStorage.removeItem("sessiondata")
+    // sessionStorage.removeItem("sessiondata")
 
     sessionStorage.removeItem("token")
 
@@ -46,6 +48,7 @@ export const AuthContextProvider = (props) => {
     token: token,
     isLoggedIn: userIsLoggedIn,
     userInfo: userInfo,
+    role:role,
     login: loginHandler,
     logout: logoutHandler,
     settinguserInfo: usersInfo,

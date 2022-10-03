@@ -7,7 +7,6 @@ import {
   Typography,
   useMediaQuery,
   Button,
-
   Menu,
   MenuItem,
 } from "@material-ui/core";
@@ -37,13 +36,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
-
 const Header = (props) => {
   const classes = useStyles();
-  const [anchor, setAnchor] = React.useState(null)
+  const [anchor, setAnchor] = React.useState(null);
   const handleClicks = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -56,11 +51,11 @@ const Header = (props) => {
   const [bgClr, setBgClr] = React.useState([]);
   // const Header = ["Home", "Projects", "Apps", "Devices", "Sessions", "Analysis"];
 
-  const Header = ["Home", "Projects" , "Admin"];
+  const Header = ["Home", "Projects", "Admin"];
 
   // const Header = ["Home", "Sessions"];
-
-  console.log(Header)
+  const role = auth.role;
+  console.log(Header);
   const handleMenu = (event) => {
     setAnchor(event.currentTarget);
   };
@@ -78,32 +73,24 @@ const Header = (props) => {
     },
   });
 
-  const AnnualHandler = (e, data, id) => {
+  const AnnualHandler = (e) => {
     setBgClr({ color: "#278EF1", borderTop: "2px solid #278EF1" });
-    setSelectedPage(id)
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   return (
     <div className={classes.root}>
-
-
       <AppBar elevation={5} style={{ backgroundColor: "#FFFFFF" }}>
         <Toolbar style={{ minHeight: "70px" }}>
-
-          <img
-            src={indlogo}
-            alt=""
-            style={{ width: "2%", height: "2%" }}
-          />
+          <img src={indlogo} alt="" style={{ width: "2%", height: "2%" }} />
           <h2
             style={{
               float: "left",
               marginLeft: "7px",
               fontSize: "21px",
               paddingTop: "0%",
-              color: "black"
+              color: "black",
             }}
           >
             GameMon
@@ -180,10 +167,9 @@ const Header = (props) => {
             </>
           ) : (
             <div style={{ marginRight: "2rem" }}>
-
-              {Header.map((data, i) => {
+              {/* {Header.map((data, i) => {
                 return (
-                  <Button key={i} onClick={(e) => AnnualHandler(e, data, i)} sx={{ paddingTop: 0 }} style={{ color: selectedPage === i ? "#278ef1" : "", borderTop: selectedPage === i ? "4px solid #278ef1" : "", borderRadius: "0px" }}
+                  <Button  onClick={(e) => AnnualHandler(e, data, i)} sx={{ paddingTop: 0 }} style={{ color: selectedPage === i ? "#278ef1" : "", borderTop: selectedPage === i ? "4px solid #278ef1" : "", borderRadius: "0px" }}
                     variant="text"
                     component={Link}
                     to={`${data}`}
@@ -193,10 +179,41 @@ const Header = (props) => {
                   </Button>)
               }      
               )
-              }
+              } */}
+              <Button
+                onClick={(e) => AnnualHandler(e)}
+                sx={{ paddingTop: 0 }}             
+                variant="text"
+                component={Link}
+                to="/Home"
+                color="#232323"
+              >
+                Home
+              </Button>
+              <Button
+                onClick={(e) => AnnualHandler(e)}
+                sx={{ paddingTop: 0 }}               
+                variant="text"
+                component={Link}
+                to="/Projects"
+                color="#232323"
+              >
+                Projects
+              </Button>
+              {role == "admin" && (
+                <Button
+                  onClick={(e) => AnnualHandler(e)}
+                  sx={{ paddingTop: 0 }}
+                  variant="text"
+                  component={Link}
+                  to="/Admin"
+                  color="#232323"
+                >
+                  Admin
+                </Button>
+              )}
             </div>
-          )
-          }
+          )}
 
           <Typography
             variant="h7"
@@ -216,22 +233,24 @@ const Header = (props) => {
             </IconButton>
             <button
               onClick={logoutHandler}
-              style={{ fontSize: "16px", width: "86px", marginRight: "-13px", marginTop: "-33px", border: "none", cursor: "pointer",backgroundColor:"transparent" }}
+              style={{
+                fontSize: "16px",
+                width: "86px",
+                marginRight: "-13px",
+                marginTop: "-33px",
+                border: "none",
+                cursor: "pointer",
+                backgroundColor: "transparent",
+              }}
             >
               Logout
             </button>
           </Typography>
-
-
-
-
-
-        </Toolbar >
-      </AppBar >
-
+        </Toolbar>
+      </AppBar>
 
       <Outlet />
-    </div >
+    </div>
   );
 };
 

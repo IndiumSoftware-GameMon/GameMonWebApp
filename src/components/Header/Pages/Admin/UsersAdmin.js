@@ -16,24 +16,25 @@ import axios from "../../../../axios/index";
 import { ContentPasteSearchOutlined } from "@mui/icons-material";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
-
+import './Admin.css'
 
 
 function App() {
   const [users, SetUsers] = useState([]);
   const initialValue = {
-    id: "",
+   
     name: "",
     email: "",
     password: "",
     phone_number: "",
     role: "",
-    license_start_date: "",
-    days: "",
+    access_end_date: "",
+    // days: "",
   };
   const [gridApi, setGridApi] = useState(null);
   const [tableData, setTableData] = useState(null);
   const [open, setOpen] = React.useState(false);
+  const [updatedId,setUpdateId] = useState();
   const [formData, setFormData] = useState(initialValue);
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,10 +44,11 @@ function App() {
     setOpen(false);
     setFormData(initialValue);
   };
+  const [selectRole, setselectRole] = React.useState("");
 
  
   
-  // const 'url' = `http://localhost:4000/users`;
+  // const 'url' = `http://44.226.139.67:4000/users`;
 
   useEffect(() => {
     getUsers();
@@ -59,11 +61,12 @@ function App() {
       email: data?.email,
       role: data?.role,
       user_since: data?.user_since,
-      license_start_date: data?.license_start_date,
+      access_end_date: data?.access_end_date,
       status: data?.status,
       phone_number: data?.phone_number,
       password: data?.password,
-      days: data?.days,
+      // days: data?.days,
+      number_of_days_left: data?.number_of_days_left
     };
   });
 
@@ -73,7 +76,8 @@ function App() {
     { headerName: "Email", field: "email" },
     { headerName: "Role", field: "role" },
     // { headerName: "StartUser", field: "user_since" },
-    { headerName: "LicenseUser", field: "license_start_date" },
+    // { headerName: "access_end_date", field: "access_end_date" },
+    { headerName: "number_of_days_left", field: "number_of_days_left" },
     { headerName: "Status", field: "status" },
     { headerName: "PhoneNumber", field: "phone_number" },
     // { headerName: "password", field: "password" },
@@ -87,7 +91,7 @@ function App() {
             variant="outlined"
             color="primary"
             style={{ margin: "10px", cursor: "pointer" ,color:"#278EF1"}}
-            onClick={() => handleUpdate(params.data)}
+            onClick={() => handleUpdate(params.data,params.data.id)}
           ></EditIcon>
           <DeleteIcon
             variant="outlined"
@@ -105,7 +109,7 @@ function App() {
 
   //fetching user data from server
   const getUsers = () => {
-    axios.get("http://localhost:3000/users").then((res) => {
+    axios.get("http://44.226.139.67:3000/users").then((res) => {
       console.log(res, "usersdata");
       SetUsers(res.data.data);
       console.log(res.data.name);
@@ -117,14 +121,26 @@ function App() {
     // console.log(value,id)
     setFormData({ ...formData, [id]: value });
   };
+
+  const handleChange = (e) => {
+    setselectRole(e.target.value);
+  };
+
+
   const onGridReady = (params) => {
     setGridApi(params);
   };
 
   //setting update row data to form data and opening pop up window
-  const handleUpdate = (oldData) => {
+  const handleUpdate = (oldData,id) => {
+    setUpdateId(id)
     console.log(oldData, "olde");
+    delete oldData.id;
+    delete oldData.number_of_days_left;
+    delete oldData.status;
+    delete oldData.user_since;
     setFormData(oldData);
+
     console.log(formData, "updated");
     handleClickOpen();
   };
@@ -133,7 +149,7 @@ function App() {
   const handleDelete = (id) => {
     console.log(id, "id");
     axios
-      .delete("http://localhost:3000/user", {
+      .delete("http://44.226.139.67:3000/user", {
         params: {
           id: id,
         },
@@ -144,12 +160,19 @@ function App() {
       });
   };
 
+
+
   const handleFormSubmit = () => {
-    if (formData.id) {
+    console.log(formData.id,"formdata with id")
+    console.log(formData,"formdata")
+    if (updatedId) {
       axios
-        .put("http://localhost:3000/user", {
+        .put("http://44.226.139.67:3000/user",formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
           params: {
-            id: formData.id,
+            id: updatedId,
           },
         })
         .then((res) => {
@@ -162,7 +185,7 @@ function App() {
       const values = JSON.stringify(formData);
       console.log(values, "values");
       axios
-        .post("http://localhost:3000/register", values, {
+        .post("http://44.226.139.67:3000/register", values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -226,7 +249,7 @@ function App() {
           rowData={rowData}
           columnDefs={columnDefs}
           // defaultColDef={defaultColDef}
-          // onGridReady={onGridReady}
+          onGridReady={onGridReady}
         />
            {/* <DataGrid
         rows={rowData}

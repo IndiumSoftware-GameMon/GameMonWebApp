@@ -7,8 +7,17 @@
     letter-spacing: 0.0075em;
 }
 .ag-theme-alpine .ag-root-wrapper {
-    border:solid 1px;
-    border-color: #babfc7;
-    border-color: var(--ag-border-color, #babfc7);
-    border-radius: 25px;
+    border:none !important;
+    border-color: white !important;
+    border-radius: 25px !important;
+    background-color: white !important;
+}
+.ag-theme-alpine {
+    --ag-foreground-color: black;
+    --ag-header-foreground-color: black;
+    --ag-header-background-color: white;
+    --ag-odd-row-background-color: white;
+    --ag-header-column-resize-handle-color: black;
+    --ag-font-size: 17px;
+    --ag-font-family: monospace;
 }
