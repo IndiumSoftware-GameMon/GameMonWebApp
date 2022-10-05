@@ -101,15 +101,15 @@ export default function FormDialog({
               variant="outlined"
               margin="dense"
             />
-                 <FormControl style={{ marginLeft: "5%" , width: "38.3%" ,marginTop:"2%"}}>
+                 {/* <FormControl style={{ marginLeft: "5%" , width: "38.3%" ,marginTop:"2%"}}>
         <InputLabel id="demo-simple-select-label">Role</InputLabel>
         <Select name="role" value={role} label="role" onChange={(e) => onChange(e)}>
           <MenuItem value={10}>admin</MenuItem>
           <MenuItem value={10}>tester</MenuItem>
           <MenuItem value={10}>manager</MenuItem>
         </Select>
-      </FormControl>
-            {/* <TextField
+      </FormControl> */}
+            <TextField
               id="role"
               value={role}
               onChange={(e) => onChange(e)}
@@ -118,7 +118,7 @@ export default function FormDialog({
               variant="outlined"
               style={{ marginLeft: "5%" }}
               margin="dense"
-            /> */}
+            />
             <TextField
               id="access_end_date"
               type="date"

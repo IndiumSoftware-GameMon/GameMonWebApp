@@ -17,7 +17,12 @@ import { ContentPasteSearchOutlined } from "@mui/icons-material";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import './Admin.css'
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function App() {
   const [users, SetUsers] = useState([]);
@@ -46,7 +51,20 @@ function App() {
   };
   const [selectRole, setselectRole] = React.useState("");
 
- 
+  const [openalert, setOpenalert] = React.useState(false);
+
+  const handleClick = () => {
+    setOpenalert(true);
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenalert(false);
+  };
+
   
   // const 'url' = `http://44.226.139.67:4000/users`;
 
@@ -100,6 +118,7 @@ function App() {
             onClick={() => {
               console.log(params, "delete function");
               handleDelete(params.value);
+              handleClick();
             }}
           ></DeleteIcon>
         </div>
@@ -109,7 +128,7 @@ function App() {
 
   //fetching user data from server
   const getUsers = () => {
-    axios.get("http://44.226.139.67:3000/users").then((res) => {
+    axios.get("http://127.0.0.1:3000/users").then((res) => {
       console.log(res, "usersdata");
       SetUsers(res.data.data);
       console.log(res.data.name);
@@ -149,7 +168,7 @@ function App() {
   const handleDelete = (id) => {
     console.log(id, "id");
     axios
-      .delete("http://44.226.139.67:3000/user", {
+      .delete("http://127.0.0.1:3000/user", {
         params: {
           id: id,
         },
@@ -167,7 +186,7 @@ function App() {
     console.log(formData,"formdata")
     if (updatedId) {
       axios
-        .put("http://44.226.139.67:3000/user",formData, {
+        .put("http://127.0.0.1:3000/user",formData, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -185,7 +204,7 @@ function App() {
       const values = JSON.stringify(formData);
       console.log(values, "values");
       axios
-        .post("http://44.226.139.67:3000/register", values, {
+        .post("http://127.0.0.1:3000/register", values, {
           headers: {
             "Content-Type": "application/json",
           },
@@ -240,7 +259,23 @@ function App() {
         </List>
       </Grid>
       <br></br>
-
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={openalert}
+        autoHideDuration={4000}
+        onClose={handleCloseAlert}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity="error"
+          sx={{ width: "100%" }}
+        >
+          User Deleted Successfully!
+        </Alert>
+      </Snackbar>
       <div
         className="ag-theme-alpine"
         style={{ height: "300px", width: "100%" }}
@@ -269,6 +304,7 @@ function App() {
         onChange={onChange}
         handleFormSubmit={handleFormSubmit}
       />
+      
     </>
   );
 }
