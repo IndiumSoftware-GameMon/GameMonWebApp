@@ -131,7 +131,7 @@ const Login = () => {
               marginLeft: "0.7%",
             }}
           >
-            GameOn
+            GameMon
           </h4>
           <img
             src={indlogo}
@@ -143,7 +143,7 @@ const Login = () => {
           <div className="box">
             <div className="left-side">
               <Grid align="center">
-                <h2 className="left-top">GameOn</h2>
+                <h2 className="left-top">GameMon</h2>
                 <img src={image} alt="" className="login_image" />
                 <h4 className="left_bottom"> Smart way to test Game App </h4>
 

@@ -21,15 +21,18 @@ import { Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import './Admin.css'
 
-export default function FormDialog({
+export default function FormEditDialog({
   open,
   handleClose,
   data,
   onChange,
   handleFormSubmit,
+  onRoleChange,
+  onDateChange,
+  updateId
 }) {
   const {
-    id,
+
     name,
     email,
     password,
@@ -53,8 +56,8 @@ export default function FormDialog({
           onClick={handleClose}
           style={{ marginLeft: "93%", marginTop: "2%", cursor: "pointer" }}
         />
-        <DialogTitle  style={{ marginLeft: "5%", fontSize:"50px" }} id="alert-dialog-title">
-          {id ? "Edit User" : "User Details"}
+        <DialogTitle style={{ marginLeft: "5%", fontSize: "50px" }} id="alert-dialog-title">
+          Edit Details
         </DialogTitle>
         <Divider />
         <DialogContent>
@@ -79,18 +82,18 @@ export default function FormDialog({
               style={{ marginLeft: "10%" }}
               margin="dense"
             />
-       
-              <TextField
-                id="password"
-                value={password}
-                onChange={(e) => onChange(e)}
-                placeholder="Enter password"
-                label="password"
-                variant="outlined"
-                style={{ marginLeft: "5%" }}
-                margin="dense"
-              />
-         
+
+            <TextField
+              id="password"
+              value={password}
+              onChange={(e) => onChange(e)}
+              placeholder="Enter password"
+              label="password"
+              variant="outlined"
+              style={{ marginLeft: "5%" }}
+              margin="dense"
+            />
+
             <TextField
               id="phone_number"
               value={phone_number}
@@ -101,15 +104,15 @@ export default function FormDialog({
               variant="outlined"
               margin="dense"
             />
-                 {/* <FormControl style={{ marginLeft: "5%" , width: "38.3%" ,marginTop:"2%"}}>
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-        <Select name="role" value={role} label="role" onChange={(e) => onChange(e)}>
-          <MenuItem value={10}>admin</MenuItem>
-          <MenuItem value={10}>tester</MenuItem>
-          <MenuItem value={10}>manager</MenuItem>
-        </Select>
-      </FormControl> */}
-            <TextField
+            <FormControl style={{ marginLeft: "5%", width: "38.3%", marginTop: "2%" }}>
+              <InputLabel id="demo-simple-select-label">Role</InputLabel>
+              <Select name="role" value={role} label="role" onChange={onRoleChange}>
+                <MenuItem value="admin">admin</MenuItem>
+                <MenuItem value="tester">tester</MenuItem>
+                <MenuItem value="manager">manager</MenuItem>
+              </Select>
+            </FormControl>
+            {/* <TextField
               id="role"
               value={role}
               onChange={(e) => onChange(e)}
@@ -118,15 +121,15 @@ export default function FormDialog({
               variant="outlined"
               style={{ marginLeft: "5%" }}
               margin="dense"
-            />
+            /> */}
             <TextField
               id="access_end_date"
               type="date"
               label="End Date"
               value={access_end_date}
-              onChange={(e) => onChange(e)}
+              onChange={onDateChange}
               variant="outlined"
-              style={{ marginLeft: "10%" , width: "38%" ,marginTop:"2%"}}
+              style={{ marginLeft: "10%", width: "38%", marginTop: "2%" }}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -137,9 +140,9 @@ export default function FormDialog({
               }}
               margin="dense"
             />
-   
-            
-        
+
+
+
           </form>
         </DialogContent>
         <Divider />
@@ -173,7 +176,7 @@ export default function FormDialog({
                 color="secondary"
                 variant="outlined"
               >
-                {id ? "Update" : "Save"}
+                Update
               </ListItem>
             </div>
           </List>

@@ -73,7 +73,7 @@ const Header = (props) => {
     },
   });
 
-  const AnnualHandler = () => {
+  const AnnualHandler = (e) => {
     setBgClr({ color: "#278EF1", borderTop: "2px solid #278EF1" });
   };
 
@@ -181,7 +181,7 @@ const Header = (props) => {
               )
               } */}
               <Button
-                onClick={ AnnualHandler}
+                onClick={(e) => AnnualHandler(e)}
                 sx={{ paddingTop: 0 }}             
                 variant="text"
                 component={Link}
@@ -191,7 +191,7 @@ const Header = (props) => {
                 Home
               </Button>
               <Button
-                onClick={ AnnualHandler}
+                onClick={(e) => AnnualHandler(e)}
                 sx={{ paddingTop: 0 }}               
                 variant="text"
                 component={Link}
@@ -202,7 +202,7 @@ const Header = (props) => {
               </Button>
               {role == "admin" && (
                 <Button
-                  onClick={ AnnualHandler}
+                  onClick={(e) => AnnualHandler(e)}
                   sx={{ paddingTop: 0 }}
                   variant="text"
                   component={Link}
