@@ -170,6 +170,8 @@ export default function Home(props) {
   const classes = Styles();
   const auth = useContext(AuthContext);
   const role = auth.role;
+  const uid = auth.id
+
   const [Firstsessiondata, SetFirstsessiondata] = React.useState([]);
   const [Secondsessiondata, SetSecondsessiondata] = React.useState([]);
   const [selecteditem, setSelecteditem] = React.useState("yellow");
@@ -193,6 +195,7 @@ export default function Home(props) {
   const [selectedsessionitem, setSelectedApplicationitem] = React.useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  // const [userId, setUserId] = useState(id)
 
   React.useEffect(() => {
     let isMount = true;
@@ -222,10 +225,12 @@ export default function Home(props) {
 
   React.useEffect(() => {
     let isMount = true;
+    console.log(auth.token, "tokennnnnnnn")
+    console.log(uid, "user")
     axios
       .get("/devices", {
         params: {
-          userId: 2,
+          userId: uid,
           fromDate: startDate,
           toDate: endDate,
         },
@@ -280,7 +285,7 @@ export default function Home(props) {
       .get("/applications", {
         params: {
           deviceId: data.device_id,
-          userId: 2,
+          userId: uid,
         },
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -303,7 +308,7 @@ export default function Home(props) {
       .get("/allSessions", {
         params: {
           DeviceId: data.device_id,
-          userId: 2,
+          userId: uid,
           appName: data.app_name,
           fromDate: startDate,
           toDate: endDate,
@@ -327,7 +332,7 @@ export default function Home(props) {
         params: {
           DeviceId: data.device_id,
           appName: data.app_name,
-          userId: 2,
+          userId: uid,
           sessionId: data.session_id,
         },
         headers: {
@@ -358,7 +363,7 @@ export default function Home(props) {
   console.log(Secondsessiondata.session_id);
   console.log(global.device_name);
 
-  
+
   return (
     <>
       <main className={clsx(classes.content)}>
@@ -408,6 +413,8 @@ export default function Home(props) {
                     <div
                       onClick={(e) => {
                         setUser(e.target.textContent);
+                        console.log(data.id, "dataid")
+                        auth.userId(data.id)
                         setUserActive(!UserActive);
                         singleUserItem(e, data, i);
                       }}
@@ -418,7 +425,7 @@ export default function Home(props) {
                       className="item"
                     >
                       {data.name}
-                      {console.log(data.id,"idddddddddddddddddddddd")}
+                      {console.log(data.id, "idddddddddddddddddddddd")}
                     </div>
                   ))}
               </div>

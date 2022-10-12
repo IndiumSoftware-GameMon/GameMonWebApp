@@ -17,6 +17,8 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import auth from "../../../../hooks/useAuth"
+
 
 const drawerWidth = 0;
 const Plot = createPlotlyComponent(Plotly);
@@ -143,6 +145,8 @@ export default function SessionsMaincomp(props) {
   const [rot, setRot] = React.useState(0);
   const [selectionModel, setSelectionModel] = React.useState([1]);
   console.log("DataTable", selectionModel);
+  const uid = auth.id;
+
 
   function rotateLeftfunc() {
     setRot(rot - 90);
@@ -168,7 +172,7 @@ export default function SessionsMaincomp(props) {
     axios
       .get("/sessionDetails", {
         params: {
-          userId: 2,
+          userId: uid,
           DeviceId: global.deviceid,
           appName: global.appname,
           sessionId: global.sessionid,
@@ -223,8 +227,7 @@ export default function SessionsMaincomp(props) {
       sortable: false,
       width: 160,
       valueGetter: (params) =>
-        `${params.getValue(params.id, "firstName") || ""} ${
-          params.getValue(params.id, "lastName") || ""
+        `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""
         }`,
     },
   ];
@@ -263,8 +266,8 @@ export default function SessionsMaincomp(props) {
             Back
           </Button>
         </div>
-        <div className={classes.grids} style={{padding:"50px"}}>
-        <div>
+        <div className={classes.grids} style={{ padding: "50px" }}>
+          <div>
             <Grid container spacing={4} direction="column">
               <Grid item xs={9} md={9}>
                 <>
@@ -325,21 +328,21 @@ export default function SessionsMaincomp(props) {
                           <PhoneAndroidIcon sx={{ fontSize: 55 }} />
 
                           <ListItemText
-                          primary={
+                            primary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
-                              {global.sessionname}
+                                {global.sessionname}
                               </Typography>
                             }
                             secondary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
                                 {global.appname}

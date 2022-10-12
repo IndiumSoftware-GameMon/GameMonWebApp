@@ -18,6 +18,8 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import auth from "../../../../hooks/useAuth"
+
 
 
 const drawerWidth = 0;
@@ -144,6 +146,7 @@ export default function SessionsMaincomp(props) {
   const [selecteditem, setSelecteditem] = React.useState("yellow");
   const [rot, setRot] = React.useState(0);
   const [selectionModel, setSelectionModel] = React.useState([1]);
+  const uid = auth.id;
   console.log("DataTable", selectionModel);
 
   function rotateLeftfunc() {
@@ -176,29 +179,29 @@ export default function SessionsMaincomp(props) {
 
   React.useEffect(() => {
     axios
-    .get("/sessionDetails", {
-      params: {
-        userId: 2,
-        DeviceId: global.deviceid,
-        appName: global.appname,
-        sessionId: global.sessionid,
-      },
-      headers: {
-        // Authorization:
-        //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidml2ZWtAZ21haWwuY29tIiwidXNlcl9yb2xlIjoidXNlciIsInVzZXJfaWQiOjIsImlhdCI6MTY1MjYzNTc5NH0.ZtIBQ0aTTgAH_hVSsctlsH4OrQjZ00SdseDpReP_pUY",
-        Authorization: `Bearer ${auth.token}`,
-      },
-    })
-    .then((res) => {
-      console.log(res);
+      .get("/sessionDetails", {
+        params: {
+          userId: uid,
+          DeviceId: global.deviceid,
+          appName: global.appname,
+          sessionId: global.sessionid,
+        },
+        headers: {
+          // Authorization:
+          //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidml2ZWtAZ21haWwuY29tIiwidXNlcl9yb2xlIjoidXNlciIsInVzZXJfaWQiOjIsImlhdCI6MTY1MjYzNTc5NH0.ZtIBQ0aTTgAH_hVSsctlsH4OrQjZ00SdseDpReP_pUY",
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
 
-      console.log(res.data, "sescond value");
-      console.log(res.data.data, "sescond value data");
-      SetSecondsessiondata(res.data.data[0]);
-      console.log(global.deviceid)
-      console.log(global.sessionid)
-      console.log(global.userid)
-      console.log(global.appname)
+        console.log(res.data, "sescond value");
+        console.log(res.data.data, "sescond value data");
+        SetSecondsessiondata(res.data.data[0]);
+        console.log(global.deviceid)
+        console.log(global.sessionid)
+        console.log(global.userid)
+        console.log(global.appname)
       });
   }, []);
 
@@ -240,8 +243,7 @@ export default function SessionsMaincomp(props) {
       sortable: false,
       width: 160,
       valueGetter: (params) =>
-        `${params.getValue(params.id, "firstName") || ""} ${
-          params.getValue(params.id, "lastName") || ""
+        `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""
         }`,
     },
   ];
@@ -260,7 +262,7 @@ export default function SessionsMaincomp(props) {
             color="primary"
             style={{
               marginLeft: "92%",
-              marginTop:"-5%",
+              marginTop: "-5%",
               color: "#FFFFFF",
               background: "#278EF1",
               borderRadius: "10px",
@@ -270,9 +272,9 @@ export default function SessionsMaincomp(props) {
             Back
           </Button>
         </div>
-        <div className={classes.grids} style={{padding:"50px"}} >
-   
-        <div>
+        <div className={classes.grids} style={{ padding: "50px" }} >
+
+          <div>
             <Grid container spacing={4} direction="column">
               <Grid item xs={9} md={9}>
                 <>
@@ -333,21 +335,21 @@ export default function SessionsMaincomp(props) {
                           <PhoneAndroidIcon sx={{ fontSize: 55 }} />
 
                           <ListItemText
-                          primary={
+                            primary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
-                              {global.sessionname}
+                                {global.sessionname}
                               </Typography>
                             }
                             secondary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
                                 {global.appname}

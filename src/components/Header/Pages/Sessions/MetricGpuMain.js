@@ -17,6 +17,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import auth from "../../../../hooks/useAuth"
+
 
 
 
@@ -144,6 +146,8 @@ export default function SessionsMaincomp(props) {
   const [selecteditem, setSelecteditem] = React.useState("yellow");
   const [rot, setRot] = React.useState(0);
   const [selectionModel, setSelectionModel] = React.useState([1]);
+  const uid = auth.id;
+
   console.log("DataTable", selectionModel);
 
   function rotateLeftfunc() {
@@ -169,29 +173,29 @@ export default function SessionsMaincomp(props) {
 
   React.useEffect(() => {
     axios
-    .get("/sessionDetails", {
-      params: {
-        userId: 2,
-        DeviceId: global.deviceid,
-        appName: global.appname,
-        sessionId: global.sessionid,
-      },
-      headers: {
-        // Authorization:
-        //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidml2ZWtAZ21haWwuY29tIiwidXNlcl9yb2xlIjoidXNlciIsInVzZXJfaWQiOjIsImlhdCI6MTY1MjYzNTc5NH0.ZtIBQ0aTTgAH_hVSsctlsH4OrQjZ00SdseDpReP_pUY",
-        Authorization: `Bearer ${auth.token}`,
-      },
-    })
-    .then((res) => {
-      console.log(res);
+      .get("/sessionDetails", {
+        params: {
+          userId: uid,
+          DeviceId: global.deviceid,
+          appName: global.appname,
+          sessionId: global.sessionid,
+        },
+        headers: {
+          // Authorization:
+          //   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidml2ZWtAZ21haWwuY29tIiwidXNlcl9yb2xlIjoidXNlciIsInVzZXJfaWQiOjIsImlhdCI6MTY1MjYzNTc5NH0.ZtIBQ0aTTgAH_hVSsctlsH4OrQjZ00SdseDpReP_pUY",
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
 
-      console.log(res.data, "sescond value");
-      console.log(res.data.data, "sescond value data");
-      SetSecondsessiondata(res.data.data[0]);
-      console.log(global.deviceid)
-      console.log(global.sessionid)
-      console.log(global.userid)
-      console.log(global.appname)
+        console.log(res.data, "sescond value");
+        console.log(res.data.data, "sescond value data");
+        SetSecondsessiondata(res.data.data[0]);
+        console.log(global.deviceid)
+        console.log(global.sessionid)
+        console.log(global.userid)
+        console.log(global.appname)
       });
   }, []);
 
@@ -229,8 +233,7 @@ export default function SessionsMaincomp(props) {
       sortable: false,
       width: 160,
       valueGetter: (params) =>
-        `${params.getValue(params.id, "firstName") || ""} ${
-          params.getValue(params.id, "lastName") || ""
+        `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""
         }`,
     },
   ];
@@ -259,7 +262,7 @@ export default function SessionsMaincomp(props) {
             color="primary"
             style={{
               marginLeft: "92%",
-              marginTop:"-5%",
+              marginTop: "-5%",
               color: "#FFFFFF",
               background: "#278EF1",
               borderRadius: "10px",
@@ -269,8 +272,8 @@ export default function SessionsMaincomp(props) {
             Back
           </Button>
         </div>
-        <div className={classes.grids} style={{padding:"50px"}}>
-        <div>
+        <div className={classes.grids} style={{ padding: "50px" }}>
+          <div>
             <Grid container spacing={4} direction="column">
               <Grid item xs={9} md={9}>
                 <>
@@ -331,21 +334,21 @@ export default function SessionsMaincomp(props) {
                           <PhoneAndroidIcon sx={{ fontSize: 55 }} />
 
                           <ListItemText
-                          primary={
+                            primary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
-                              {global.sessionname}
+                                {global.sessionname}
                               </Typography>
                             }
                             secondary={
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white",marginLeft:"20px"
+                                  color: "white", marginLeft: "20px"
                                 }}
                               >
                                 {global.appname}
@@ -364,70 +367,70 @@ export default function SessionsMaincomp(props) {
           </div>
           <div style={{ marginTop: "25px" }}>  <Plot
 
-data={[
-  {
-    x: Secondsessiondata.gpu_usage_time,
-    y: Secondsessiondata.avg_gpu_usage,
-    hovertemplate:
+            data={[
+              {
+                x: Secondsessiondata.gpu_usage_time,
+                y: Secondsessiondata.avg_gpu_usage,
+                hovertemplate:
 
-      '<b>%{text}</b>',
-    text: Secondsessiondata.gpu_deviation,
-    showlegend: false,
-    type: "scatter",
-    mode: "line",
-    type: "scatter",
-    mode: "line",
-    type: "scatter",
-    mode: "line",
+                  '<b>%{text}</b>',
+                text: Secondsessiondata.gpu_deviation,
+                showlegend: false,
+                type: "scatter",
+                mode: "line",
+                type: "scatter",
+                mode: "line",
+                type: "scatter",
+                mode: "line",
 
-    marker: { enabled: false },
-    line: { shape: "spline", smoothing: 0.8 },
-    marker: { color: "#87CEEB", size: "0" },
-  },
-]}
-layout={{
-  X: 0,
-  xanchor: "left",
-  title: "Total GPU Usage",
-  width: 800,
-  height: 310,
-  margin: { l: 90, r: 40, b: 95, t: 40, pad: 15 },
-  title: false,
-  xref: 450,
+                marker: { enabled: false },
+                line: { shape: "spline", smoothing: 0.8 },
+                marker: { color: "#87CEEB", size: "0" },
+              },
+            ]}
+            layout={{
+              X: 0,
+              xanchor: "left",
+              title: "Total GPU Usage",
+              width: 800,
+              height: 310,
+              margin: { l: 90, r: 40, b: 95, t: 40, pad: 15 },
+              title: false,
+              xref: 450,
 
-  text: "GPU Usage",
-  borderRadius: 20,
-  xaxis: {
-    autorange: true,
-    title: {
-      text: "Time",
-      font: {
-        family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
-        size: 16,
-      },
-    },
+              text: "GPU Usage",
+              borderRadius: 20,
+              xaxis: {
+                autorange: true,
+                title: {
+                  text: "Time",
+                  font: {
+                    family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
+                    size: 16,
+                  },
+                },
 
-  },
+              },
 
-  yaxis: {
-    title: {
-      text: "Total GPU Usage",
-      font: {
-        family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
-        size: 16,
-      },
-    },
-  },
+              yaxis: {
+                title: {
+                  text: "Total GPU Usage",
+                  font: {
+                    family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;",
+                    size: 16,
+                  },
+                },
+              },
 
-  plot_bgcolor: "#F5F5F5",
-  // paper_bgcolor: "",
+              plot_bgcolor: "#F5F5F5",
+              // paper_bgcolor: "",
 
-  plot_height: 300,
-}}
-config={{ displayModeBar: false }}
-/>
+              plot_height: 300,
+            }}
+            config={{ displayModeBar: false }}
+          />
 
-{/* <Paper className={classes.paper2}>
+            {/* <Paper className={classes.paper2}>
   <h4 align="left">GPU Info</h4>
   <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
     <Table
@@ -452,7 +455,7 @@ config={{ displayModeBar: false }}
   </TableContainer>
 </Paper> */}
 
-</div>
+          </div>
         </div>
       </main>
     </>

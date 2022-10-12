@@ -17,6 +17,7 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import auth from "../../../../hooks/useAuth"
 
 
 const drawerWidth = 0;
@@ -145,6 +146,7 @@ export default function SessionsMaincomp(props) {
   const [selecteditem, setSelecteditem] = React.useState("yellow");
   const [rot, setRot] = React.useState(0);
   const [selectionModel, setSelectionModel] = React.useState([1]);
+  const id = auth.id;
   console.log("DataTable", selectionModel);
 
   function rotateLeftfunc() {
@@ -179,7 +181,7 @@ export default function SessionsMaincomp(props) {
     axios
       .get("/sessionDetails", {
         params: {
-          userId: 2,
+          userId: id,
           DeviceId: global.deviceid,
           appName: global.appname,
           sessionId: global.sessionid,
@@ -266,7 +268,7 @@ export default function SessionsMaincomp(props) {
       <main className={clsx(classes.content)}>
         <div className={classes.drawerHeader} />
         <div>
-        <Button
+          <Button
             component={Link}
             to="/"
             variant="contained"
