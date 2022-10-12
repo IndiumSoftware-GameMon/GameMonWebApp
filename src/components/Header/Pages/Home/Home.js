@@ -65,10 +65,8 @@ import smartphone1 from "../../../../asset/smartphone1.png";
 import "./filter.css";
 import "./Home.css";
 import { StylesProvider } from "@material-ui/core/styles";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import ArticleIcon from '@mui/icons-material/Article';
-
-
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import ArticleIcon from "@mui/icons-material/Article";
 
 const drawerWidth = 0;
 
@@ -107,7 +105,6 @@ const Styles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-
   },
 
   emailicon: {
@@ -172,19 +169,24 @@ var mapObj = {
 export default function Home(props) {
   const classes = Styles();
   const auth = useContext(AuthContext);
+  const role = auth.role;
   const [Firstsessiondata, SetFirstsessiondata] = React.useState([]);
   const [Secondsessiondata, SetSecondsessiondata] = React.useState([]);
   const [selecteditem, setSelecteditem] = React.useState("yellow");
   const [ApplicationActive, setApplicationActive] = useState(false);
   const [DevicesActive, setDevicesActive] = useState(false);
+  const [UserActive, setUserActive] = useState(false);
   const [SessionsActive, setSessionsActive] = useState(false);
   const [DateActive, setDateActive] = useState(false);
+  const [User, setUser] = useState("User");
   const [application, setApplication] = useState("Application");
   const [devices, setDevices] = useState("Devices");
   const [sessions, setSessions] = useState("Sessions");
   const [date, setDate] = useState("Date");
+  const [FirstUserdata, SetFirstUserdata] = React.useState([]);
   const [Firstdevicedata, SetFirstdevicedata] = React.useState([]);
   const [Seconddevicedata, SetSeconddevicedata] = React.useState([]);
+  const [selectedUseritem, setSelectedUseritem] = React.useState("yellow");
   const [selectedDeviceitem, setSelectedDeviceitem] = React.useState("yellow");
   const [selectedappitem, setSelectedappitem] = React.useState("yellow");
   const [selectedDevice, setSelectedDevice] = React.useState("");
@@ -192,7 +194,31 @@ export default function Home(props) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-
+  React.useEffect(() => {
+    let isMount = true;
+    axios
+      .get("/users", {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data, "Users value");
+        console.log(res.data.data, "Users value data");
+        if (isMount) {
+          SetFirstUserdata(res.data.data);
+          console.log(res.data.data.id);
+        }
+        // global.device_name = res.data.device_name;
+      })
+      .catch((err) => {
+        console.log(err, "errorr");
+      });
+    return () => {
+      isMount = false;
+    };
+  }, []);
 
   React.useEffect(() => {
     let isMount = true;
@@ -213,7 +239,7 @@ export default function Home(props) {
         console.log(res.data);
         console.log(res.data.device_id);
         console.log(res.data.device_name);
-        if(isMount) {
+        if (isMount) {
           SetFirstdevicedata(res.data.data);
         }
         global.device_name = res.data.device_name;
@@ -221,34 +247,31 @@ export default function Home(props) {
       .catch((err) => {
         console.log(err, "errorr");
       });
-      return () => {
-        isMount = false;
-      }
+    return () => {
+      isMount = false;
+    };
   }, [startDate, endDate]);
 
-  React.useEffect(() => {
-    const sessionData = window.sessionStorage.getItem("sessiondata");
-    const savedValues = JSON.parse(sessionData);
-    // updateSessionValues(savedValues.Firstdevicedata);
-    SetFirstdevicedata(savedValues.Firstdevicedata);
-    SetSeconddevicedata(savedValues.Seconddevicedata);
-    SetFirstsessiondata(savedValues.Firstsessiondata)
-    SetSecondsessiondata(savedValues.Secondsessiondata)
-    setStartDate(savedValues.startDate)
-    setEndDate(savedValues.endDate)
-    setDevices(savedValues.devices)
-    setApplication(savedValues.application)
-    setSessions(savedValues.sessions)
-  }, []);
-
-  React.useEffect(() => {
-    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata,date,devices,application,sessions,startDate,endDate }
-    window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
-
-  })
-                            
-
   // window.sessionStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
+
+  function singleUserItem(e, data, id) {
+    console.log(e.target, data, "eeeeeee");
+    setSelectedUseritem(id);
+    axios
+      .get("/users", {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+
+        console.log(res.data, "Users value");
+        console.log(res.data.data, "Users value data");
+        // SetSeconddevicedata(res.data.data);
+
+      });
+  }
 
   function singleDeviceItem(e, data, id) {
     console.log(e.target, data, "eeeeeee");
@@ -257,7 +280,7 @@ export default function Home(props) {
       .get("/applications", {
         params: {
           deviceId: data.device_id,
-          userId: "2",
+          userId: 2,
         },
         headers: {
           Authorization: `Bearer ${auth.token}`,
@@ -269,7 +292,6 @@ export default function Home(props) {
         console.log(res.data, "sescond value");
         console.log(res.data.data, "sescond value data");
         SetSeconddevicedata(res.data.data);
-
       });
   }
 
@@ -281,7 +303,7 @@ export default function Home(props) {
       .get("/allSessions", {
         params: {
           DeviceId: data.device_id,
-          userId: "2",
+          userId: 2,
           appName: data.app_name,
           fromDate: startDate,
           toDate: endDate,
@@ -317,15 +339,13 @@ export default function Home(props) {
 
         console.log(res.data, "sescond value");
         console.log(res.data.data, "sescond value data");
-        console.log(data.device_id)
+        console.log(data.device_id);
         SetSecondsessiondata(res.data.data[0]);
         global.sessionname = data.sessionname;
         global.deviceid = data.device_id;
         global.userid = data.user_id;
         global.appname = data.app_name;
         global.sessionid = data.session_id;
-
-
 
         setTimeout(() => {
           setSelectedDevice(Secondsessiondata.sessionname);
@@ -336,10 +356,9 @@ export default function Home(props) {
   console.log(endDate, "ending date");
   console.log(typeof startDate);
   console.log(Secondsessiondata.session_id);
-  console.log(global.device_name)
+  console.log(global.device_name);
 
-
-
+  
   return (
     <>
       <main className={clsx(classes.content)}>
@@ -348,10 +367,64 @@ export default function Home(props) {
             display: "flex",
             borderRadius: "14px",
             alignItems: "center",
-            marginLeft: "18%",
+            marginLeft: "9%",
             marginTop: "5.5%",
           }}
         >
+          {role == "admin" && (
+            <div
+              className="dropdown"
+              style={{
+                borderRadius: "20px 0 0 20px",
+                border: "1px solid white",
+              }}
+            >
+              <div
+                onClick={(e) => {
+                  setUserActive(!UserActive);
+                }}
+                className="dropdown-btn-user"
+              >
+                <img
+                  src={smartphone1}
+                  alt="smartphone1"
+                  style={{ marginRight: "-25px" }}
+                />
+                {User}
+                <img
+                  src={downarrowicon1}
+                  alt="downarrowicon1"
+                  style={{ marginRight: "10px" }}
+                />
+              </div>
+              <div
+                className="dropdown-content"
+                style={{ display: UserActive ? "block" : "none" }}
+              >
+                {console.log(User, "sadsasdasdasdasd")}
+
+                {FirstUserdata &&
+                  FirstUserdata.map((data, i) => (
+                    <div
+                      onClick={(e) => {
+                        setUser(e.target.textContent);
+                        setUserActive(!UserActive);
+                        singleUserItem(e, data, i);
+                      }}
+                      style={{
+                        background: selectedDeviceitem === i ? "#278ef1" : "",
+                        color: selectedDeviceitem === i ? "" : "black",
+                      }}
+                      className="item"
+                    >
+                      {data.name}
+                      {console.log(data.id,"idddddddddddddddddddddd")}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
+
           <div
             className="dropdown"
             style={{ borderRadius: "0 20px 20px 0", border: "1px solid white" }}
@@ -523,12 +596,12 @@ export default function Home(props) {
                   }}
                   className="item"
                 >
-                {data.app_name.replace(
-                              /com|.qualcomm|.oneplus|.android|.display|.google|.tools|.internal|.emulation|.dragonfistztamilan|.network/gi,
-                              function (matched) {
-                                return mapObj[matched];
-                              }
-                            )}
+                  {data.app_name.replace(
+                    /com|.qualcomm|.oneplus|.android|.display|.google|.tools|.internal|.emulation|.dragonfistztamilan|.network/gi,
+                    function (matched) {
+                      return mapObj[matched];
+                    }
+                  )}
                 </div>
               ))}
             </div>
@@ -566,7 +639,6 @@ export default function Home(props) {
                     setSessions(e.target.textContent);
                     setSessionsActive(!SessionsActive);
                     singleSessionItem(e, data, i);
-
                   }}
                   style={{
                     background: selecteditem === i ? "#278ef1" : "",
@@ -582,7 +654,6 @@ export default function Home(props) {
             </div>
           </div>
         </div>
-
 
         <div className={classes.grids}>
           <div>
@@ -612,7 +683,8 @@ export default function Home(props) {
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white", marginLeft: "15px"
+                                  color: "white",
+                                  marginLeft: "15px",
                                 }}
                               >
                                 {Secondsessiondata.sessionname}
@@ -622,7 +694,8 @@ export default function Home(props) {
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white", marginLeft: "15px"
+                                  color: "white",
+                                  marginLeft: "15px",
                                 }}
                               >
                                 Session Name
@@ -630,18 +703,11 @@ export default function Home(props) {
                             }
                           ></ListItemText>
                         </ListItem>
-
-
-
                       </div>
 
                       {console.log(Secondsessiondata)}
                     </List>
                   </div>
-
-
-
-               
 
                   <div className="device-info-style-list">
                     <List
@@ -666,7 +732,8 @@ export default function Home(props) {
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white", marginLeft: "15px"
+                                  color: "white",
+                                  marginLeft: "15px",
                                 }}
                               >
                                 {Secondsessiondata.version_name}
@@ -676,7 +743,8 @@ export default function Home(props) {
                               <Typography
                                 type="body2"
                                 style={{
-                                  color: "white", marginLeft: "15px"
+                                  color: "white",
+                                  marginLeft: "15px",
                                 }}
                               >
                                 Version
@@ -684,16 +752,12 @@ export default function Home(props) {
                             }
                           ></ListItemText>
                         </ListItem>
-
-
-
                       </div>
 
                       {console.log(Secondsessiondata)}
                     </List>
                   </div>
 
-    
                   <div className="device-info-style-list">
                     <List
                       style={{
@@ -709,22 +773,28 @@ export default function Home(props) {
                           borderRadius: "8px",
                         }}
                       >
-                        <ListItem button onClick={() => {
-                          if (Secondsessiondata.session_id !== "") {
-                            window.open(
-                              `http://44.226.139.67:3000/getReport?sessionID=${Secondsessiondata.session_id}`
-                            );
-                          }
-                        }}>
+                        <ListItem
+                          button
+                          onClick={() => {
+                            if (Secondsessiondata.session_id !== "") {
+                              window.open(
+                                `http://44.226.139.67:3000/getReport?sessionID=${Secondsessiondata.session_id}`
+                              );
+                            }
+                          }}
+                        >
                           <FileDownloadIcon sx={{ fontSize: 30 }} />
 
-                          <ListItemText style={{
-                            color: "white", marginLeft: "22px"
-                          }}> Download the report</ListItemText>
+                          <ListItemText
+                            style={{
+                              color: "white",
+                              marginLeft: "22px",
+                            }}
+                          >
+                            {" "}
+                            Download the report
+                          </ListItemText>
                         </ListItem>
-
-
-
                       </div>
 
                       {console.log(Secondsessiondata)}
