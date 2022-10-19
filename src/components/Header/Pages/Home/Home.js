@@ -180,7 +180,7 @@ export default function Home(props) {
   const [UserActive, setUserActive] = useState(false);
   const [SessionsActive, setSessionsActive] = useState(false);
   const [DateActive, setDateActive] = useState(false);
-  const [User, setUser] = useState("User");
+  const [User, setUser] = useState(null);
   const [application, setApplication] = useState(null);
   const [device, setDevices] = useState(null);
   const [sessions, setSessions] = useState(null);
@@ -373,13 +373,14 @@ export default function Home(props) {
     SetSecondsessiondata(savedValues?.Secondsessiondata)
     setStartDate(savedValues?.startDate)
     setEndDate(savedValues?.endDate)
-    setDevices(savedValues?.devices)
+    setDevices(savedValues?.device)
     setApplication(savedValues?.application)
     setSessions(savedValues?.sessions)
+    setUser(savedValues?.User)
   }, []);
 
   React.useEffect(() => {
-    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata,date,device,application,sessions,startDate,endDate }
+    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata,date,device,application,sessions,startDate,endDate,User }
     window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
 
   })
@@ -415,7 +416,7 @@ export default function Home(props) {
                   alt="smartphone1"
                   style={{ marginRight: "-25px" }}
                 />
-                {User}
+                {User ? User : "User"}
                 <img
                   src={downarrowicon1}
                   alt="downarrowicon1"
