@@ -31,6 +31,7 @@ export const AuthContextProvider = (props) => {
     // sessionStorage.setItem("token", userInfo.token);
     sessionStorage.setItem("token", data.token)
     sessionStorage.setItem("role", data.role)
+
   };
   const userIdHandler = (id) => {
     setId(id)
@@ -40,12 +41,10 @@ export const AuthContextProvider = (props) => {
   console.log("hello world")
 
   const logoutHandler = () => {
+    sessionStorage.removeItem("sessiondata")
     setToken(null);
     // sessionStorage.removeItem("token");
-    // sessionStorage.removeItem("sessiondata")
-
     sessionStorage.removeItem("token")
-
   };
   const usersInfo = (data) => {
     setUserInfo(data);

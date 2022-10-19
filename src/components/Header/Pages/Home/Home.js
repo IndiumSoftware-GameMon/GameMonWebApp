@@ -181,9 +181,9 @@ export default function Home(props) {
   const [SessionsActive, setSessionsActive] = useState(false);
   const [DateActive, setDateActive] = useState(false);
   const [User, setUser] = useState("User");
-  const [application, setApplication] = useState("Application");
-  const [devices, setDevices] = useState("Devices");
-  const [sessions, setSessions] = useState("Sessions");
+  const [application, setApplication] = useState(null);
+  const [device, setDevices] = useState(null);
+  const [sessions, setSessions] = useState(null);
   const [date, setDate] = useState("Date");
   const [FirstUserdata, SetFirstUserdata] = React.useState([]);
   const [Firstdevicedata, SetFirstdevicedata] = React.useState([]);
@@ -360,9 +360,29 @@ export default function Home(props) {
   console.log(startDate, "starting date");
   console.log(endDate, "ending date");
   console.log(typeof startDate);
-  console.log(Secondsessiondata.session_id);
+  console.log(Secondsessiondata?.session_id);
   console.log(global.device_name);
 
+   React.useEffect(() => {
+    const sessionData = window.sessionStorage.getItem("sessiondata");
+    const savedValues = JSON.parse(sessionData);
+    // updateSessionValues(savedValues.Firstdevicedata);
+    SetFirstdevicedata(savedValues?.Firstdevicedata);
+    SetSeconddevicedata(savedValues?.Seconddevicedata);
+    SetFirstsessiondata(savedValues?.Firstsessiondata)
+    SetSecondsessiondata(savedValues?.Secondsessiondata)
+    setStartDate(savedValues?.startDate)
+    setEndDate(savedValues?.endDate)
+    setDevices(savedValues?.devices)
+    setApplication(savedValues?.application)
+    setSessions(savedValues?.sessions)
+  }, []);
+
+  React.useEffect(() => {
+    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata,date,device,application,sessions,startDate,endDate }
+    window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
+
+  })
 
   return (
     <>
@@ -537,7 +557,7 @@ export default function Home(props) {
                 alt="smartphone1"
                 style={{ marginRight: "-25px" }}
               />
-              {devices}
+              {device ? device : "device"}
               <img
                 src={downarrowicon1}
                 alt="downarrowicon1"
@@ -565,7 +585,7 @@ export default function Home(props) {
                     className="item"
                   >
                     {data.device_name}
-                    {console.log(devices)}
+                    {console.log(device)}
                   </div>
                 ))}
             </div>
@@ -578,7 +598,7 @@ export default function Home(props) {
               }}
               className="dropdown-btn"
             >
-              {application}
+              {application ? application : "application"}
               <img
                 src={downarrowicon1}
                 alt="downarrowicon1"
@@ -589,8 +609,8 @@ export default function Home(props) {
               className="dropdown-content"
               style={{ display: ApplicationActive ? "block" : "none" }}
             >
-              {console.log(Seconddevicedata)}
-              {Seconddevicedata.map((data, i) => (
+              {/* {console.log(Seconddevicedata)} */}
+              {Seconddevicedata?.map((data, i) => (
                 <div
                   onClick={(e) => {
                     setApplication(e.target.textContent);
@@ -626,7 +646,7 @@ export default function Home(props) {
               }}
             >
               <img src={clock1} alt="clock1" style={{ marginRight: "-2px" }} />
-              {sessions}
+              {sessions ? sessions : "sessions"}
 
               <img
                 src={downarrowicon1}
@@ -639,7 +659,7 @@ export default function Home(props) {
               style={{ display: SessionsActive ? "block" : "none" }}
             >
               {console.log(Firstsessiondata)}
-              {Firstsessiondata.map((data, i) => (
+              {Firstsessiondata?.map((data, i) => (
                 <div
                   key={i}
                   onClick={(e) => {
@@ -694,7 +714,7 @@ export default function Home(props) {
                                   marginLeft: "15px",
                                 }}
                               >
-                                {Secondsessiondata.sessionname}
+                                {Secondsessiondata?.sessionname}
                               </Typography>
                             }
                             secondary={
@@ -743,7 +763,7 @@ export default function Home(props) {
                                   marginLeft: "15px",
                                 }}
                               >
-                                {Secondsessiondata.version_name}
+                                {Secondsessiondata?.version_name}
                               </Typography>
                             }
                             secondary={
@@ -846,7 +866,7 @@ export default function Home(props) {
                             color: "#278EF1",
                           }}
                         >
-                          {Secondsessiondata.email}
+                          {Secondsessiondata?.email}
                         </p>
                       </div>
                     </div>
@@ -874,7 +894,7 @@ export default function Home(props) {
                             color: "#278EF1",
                           }}
                         >
-                          {Secondsessiondata.total_duration}
+                          {Secondsessiondata?.total_duration}
                         </p>
                       </div>
                     </div>
@@ -906,7 +926,7 @@ export default function Home(props) {
                             color: "#278EF1",
                           }}
                         >
-                          {Secondsessiondata.created_at}
+                          {Secondsessiondata?.created_at}
                         </p>
                       </div>
                     </div>
@@ -959,8 +979,8 @@ export default function Home(props) {
               <Link to="/Sessions/:id/cpu" style={{ textDecoration: "none" }}>
                 <MetricUsage
                   value={
-                    Secondsessiondata.cpu_average_usage !== undefined
-                      ? Secondsessiondata.cpu_average_usage
+                    Secondsessiondata?.cpu_average_usage !== undefined
+                      ? Secondsessiondata?.cpu_average_usage
                       : 0
                   }
                   text="CPU Usage"
@@ -973,8 +993,8 @@ export default function Home(props) {
               <Link to="/Sessions/:id/gpu" style={{ textDecoration: "none" }}>
                 <MetricUsage
                   value={
-                    Secondsessiondata.gpu_average_usage !== undefined
-                      ? Secondsessiondata.gpu_average_usage
+                    Secondsessiondata?.gpu_average_usage !== undefined
+                      ? Secondsessiondata?.gpu_average_usage
                       : 0
                   }
                   text="GPU Usage"
@@ -990,8 +1010,8 @@ export default function Home(props) {
               >
                 <MetricUsage
                   value={
-                    Secondsessiondata.memory_average_usage !== undefined
-                      ? Secondsessiondata.memory_average_usage
+                    Secondsessiondata?.memory_average_usage !== undefined
+                      ? Secondsessiondata?.memory_average_usage
                       : 0
                   }
                   text="Average Memory Usage"
@@ -1004,8 +1024,8 @@ export default function Home(props) {
               <Link to="/Sessions/:id/fps" style={{ textDecoration: "none" }}>
                 <MetricUsage
                   value={
-                    Secondsessiondata.average_fps_value !== undefined
-                      ? Secondsessiondata.average_fps_value
+                    Secondsessiondata?.average_fps_value !== undefined
+                      ? Secondsessiondata?.average_fps_value
                       : 0
                   }
                   text="FPS"
@@ -1022,8 +1042,8 @@ export default function Home(props) {
               >
                 <MetricUsage
                   value={
-                    Secondsessiondata.download_data_usage_average !== undefined
-                      ? Secondsessiondata.download_data_usage_average
+                    Secondsessiondata?.download_data_usage_average !== undefined
+                      ? Secondsessiondata?.download_data_usage_average
                       : 0
                   }
                   text="Total Data Downloaded"
@@ -1039,8 +1059,8 @@ export default function Home(props) {
               >
                 <MetricUsage
                   value={
-                    Secondsessiondata.upload_data_usage_average !== undefined
-                      ? Secondsessiondata.upload_data_usage_average
+                    Secondsessiondata?.upload_data_usage_average !== undefined
+                      ? Secondsessiondata?.upload_data_usage_average
                       : 0
                   }
                   text="Total Data Uploaded"
@@ -1054,8 +1074,8 @@ export default function Home(props) {
               {/* <Link to="/Sessions/:id/power" style={{ textDecoration: "none" }}> */}
               <MetricUsage
                 value={
-                  Secondsessiondata.peak_memory_value !== undefined
-                    ? Secondsessiondata.peak_memory_value
+                  Secondsessiondata?.peak_memory_value !== undefined
+                    ? Secondsessiondata?.peak_memory_value
                     : 0
                 }
                 text="Average Peak Memory"
@@ -1071,8 +1091,8 @@ export default function Home(props) {
               > */}
               <MetricUsage
                 value={
-                  Secondsessiondata.fps_stability !== undefined
-                    ? Secondsessiondata.fps_stability
+                  Secondsessiondata?.fps_stability !== undefined
+                    ? Secondsessiondata?.fps_stability
                     : 0
                 }
                 text="FPS Stability"
