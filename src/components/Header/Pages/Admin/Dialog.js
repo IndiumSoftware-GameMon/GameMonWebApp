@@ -1,25 +1,18 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { TextField } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import { Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import './Admin.css'
+import "./Admin.css";
 
 export default function FormEditDialog({
   open,
@@ -29,21 +22,9 @@ export default function FormEditDialog({
   handleFormSubmit,
   onRoleChange,
   onDateChange,
-  updateId
 }) {
-  const {
-
-    name,
-    email,
-    password,
-    phone_number,
-    role,
-    access_end_date,
-  } = data;
-  const [age, setAge] = React.useState("");
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+  const { name, email, password, phone_number, role, access_end_date } = data;
+  
   return (
     <div>
       <Dialog
@@ -56,7 +37,10 @@ export default function FormEditDialog({
           onClick={handleClose}
           style={{ marginLeft: "93%", marginTop: "2%", cursor: "pointer" }}
         />
-        <DialogTitle style={{ marginLeft: "5%", fontSize: "50px" }} id="alert-dialog-title">
+        <DialogTitle
+          style={{ marginLeft: "5%", fontSize: "50px" }}
+          id="alert-dialog-title"
+        >
           Edit Details
         </DialogTitle>
         <Divider />
@@ -104,24 +88,21 @@ export default function FormEditDialog({
               variant="outlined"
               margin="dense"
             />
-            <FormControl style={{ marginLeft: "5%", width: "38.3%", marginTop: "2%" }}>
+            <FormControl
+              style={{ marginLeft: "5%", width: "38.3%", marginTop: "2%" }}
+            >
               <InputLabel id="demo-simple-select-label">Role</InputLabel>
-              <Select name="role" value={role} label="role" onChange={onRoleChange}>
+              <Select
+                name="role"
+                value={role}
+                label="role"
+                onChange={onRoleChange}
+              >
                 <MenuItem value="admin">admin</MenuItem>
                 <MenuItem value="tester">tester</MenuItem>
                 <MenuItem value="manager">manager</MenuItem>
               </Select>
             </FormControl>
-            {/* <TextField
-              id="role"
-              value={role}
-              onChange={(e) => onChange(e)}
-              placeholder="Enter Role "
-              label="Role "
-              variant="outlined"
-              style={{ marginLeft: "5%" }}
-              margin="dense"
-            /> */}
             <TextField
               id="access_end_date"
               type="date"
@@ -140,9 +121,6 @@ export default function FormEditDialog({
               }}
               margin="dense"
             />
-
-
-
           </form>
         </DialogContent>
         <Divider />
@@ -214,5 +192,3 @@ export default function FormEditDialog({
     </div>
   );
 }
-
-

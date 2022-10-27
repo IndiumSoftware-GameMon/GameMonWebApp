@@ -4,7 +4,6 @@ import Admin from "./components/Header/Pages/Admin/Admin";
 import Projects from "./components/Header/Pages/Projects/Projects";
 import Sessionmain from "./components/Header/Pages/Sessions/Sessions";
 import Analysis from "./components/Header/Pages/Analysis/Analysis";
-import SignUp from "./components/SignUp/SignUp";
 import { useContext } from "react";
 import AuthContext from "./hooks/useAuth.js";
 import {
@@ -14,8 +13,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./components/Login/Login";
-import { useNavigate } from "react-router-dom";
-
 
 
 function App() {
@@ -32,14 +29,13 @@ function App() {
             <Route path="/" element={<Navigate replace to="/login" />} />
           </>
         )}
-        {!isLoggedIn && <Route path="/SignUp" element={[<SignUp />]} />}
         {isLoggedIn && (
           <Route path="/" element={[<Header />]}>
             <Route exact path="/Home" element={<Home />} />
             <Route path="/" element={<Navigate replace to="/Home" />} />
-          {role=="admin" && <Route exact path="/Admin" element={<Admin />} /> }  
+          {role === "admin" && <Route exact path="/Admin" element={<Admin />} /> }  
             <Route exact path="/Projects" element={<Projects />} />
-            {role=="admin" && <Route path="/Admin/*" element={[<Admin />]} /> }
+            {role === "admin" && <Route path="/Admin/*" element={[<Admin />]} /> }
             <Route path="/sessions/*" element={[<Sessionmain />]} />
             <Route exact path="/Analysis" element={<Analysis />} />
           </Route>

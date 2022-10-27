@@ -12,15 +12,12 @@ import {
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Link, Outlet } from "react-router-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { purple } from "@mui/material/colors";
 // IMPORTING ICONS
 import MenuIcon from "@material-ui/icons/Menu";
 import { useNavigate, NavLink } from "react-router-dom";
 import AuthContext from "../../hooks/useAuth";
 import Avatar from "@mui/material/Avatar";
 import { blue } from "@mui/material/colors";
-import { grey } from "@material-ui/core/colors";
 import indlogo from "../../asset/Group.png";
 
 // LOCAL-STYLING
@@ -47,13 +44,9 @@ const Header = (props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const [selectedPage, setSelectedPage] = React.useState([]);
   const [bgClr, setBgClr] = React.useState([]);
-  // const Header = ["Home", "Projects", "Apps", "Devices", "Sessions", "Analysis"];
 
   const Header = ["Home", "Projects", "Admin"];
-
-  // const Header = ["Home", "Sessions"];
   const role = auth.role;
   console.log(Header);
   const handleMenu = (event) => {
@@ -65,13 +58,6 @@ const Header = (props) => {
     navigate("/login");
   };
 
-  const buttonTheme = createMuiTheme({
-    palette: {
-      primary: {
-        main: purple[50],
-      },
-    },
-  });
 
   const AnnualHandler = (e) => {
     setBgClr({ color: "#278EF1", borderTop: "2px solid #278EF1" });
@@ -167,19 +153,7 @@ const Header = (props) => {
             </>
           ) : (
             <div style={{ marginRight: "2rem" }}>
-              {/* {Header.map((data, i) => {
-                return (
-                  <Button  onClick={(e) => AnnualHandler(e, data, i)} sx={{ paddingTop: 0 }} style={{ color: selectedPage === i ? "#278ef1" : "", borderTop: selectedPage === i ? "4px solid #278ef1" : "", borderRadius: "0px" }}
-                    variant="text"
-                    component={Link}
-                    to={`${data}`}
-                    color="#232323"
-                  >
-                    {data}
-                  </Button>)
-              }      
-              )
-              } */}
+          
               <Button
                 onClick={(e) => AnnualHandler(e)}
                 sx={{ paddingTop: 0 }}             
@@ -200,7 +174,7 @@ const Header = (props) => {
               >
                 Projects
               </Button>
-              {role == "admin" && (
+              {role === "admin" && (
                 <Button
                   onClick={(e) => AnnualHandler(e)}
                   sx={{ paddingTop: 0 }}

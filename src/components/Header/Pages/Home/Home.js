@@ -2,62 +2,20 @@ import React, { useContext, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import LinearProgress from "@mui/material/LinearProgress";
-import PersonIcon from "@mui/icons-material/Person";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import NetworkCellIcon from "@mui/icons-material/NetworkCell";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import EventIcon from "@mui/icons-material/Event";
-import AddIcon from "@mui/icons-material/Add";
-import Fab from "@mui/material/Fab";
 import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Button from "@mui/material/Button";
 import axios from "../../../../axios/index";
-import auth from "../../../../hooks/useAuth";
 import MetricUsage from "../../Pages/Sessions/MetricUsage";
-import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
 import AuthContext from "../../../../hooks/useAuth";
-import Version from "../../../../asset/version.png";
-import androidLogo from "../../../../asset/androidlogo.png";
-import mini from "../../../../asset/mini.png";
-import appVersion from "../../../../asset/appVersion.png";
-import charge from "../../../../asset/charge.png";
-import p1 from "../../../../asset/p1.png";
-import p2 from "../../../../asset/p2.png";
-import download from "../../../../asset/download.png";
 import profile from "../../../../asset/profile.png";
 import time from "../../../../asset/time.png";
-import location1 from "../../../../asset/location1.png";
 import calender from "../../../../asset/calender.png";
-import tower from "../../../../asset/tower.png";
 import { Divider } from "@mui/material";
-import { IconButton } from "@material-ui/core";
-import { SearchOutlined } from "@material-ui/icons";
-import { useParams, Link } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
-import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@material-ui/styles";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import { Typography } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import { FormControl, InputLabel, Select } from "@material-ui/core";
-import Box from "@mui/material/Box";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import downarrowicon1 from "../../../../asset/downarrowicon1.png";
 import calender1 from "../../../../asset/calender1.png";
 import clock1 from "../../../../asset/clock1.png";
@@ -68,35 +26,11 @@ import { StylesProvider } from "@material-ui/core/styles";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import ArticleIcon from "@mui/icons-material/Article";
 
-const drawerWidth = 0;
 
 const Styles = makeStyles((theme) => ({
   root: {
     display: "flex",
     marginTop: 55,
-  },
-
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    marginTop: 55,
-    width: drawerWidth,
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
@@ -106,42 +40,10 @@ const Styles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-
-  emailicon: {
-    display: "flex",
-    alignItems: "left",
-    flexWrap: "wrap",
-    width: "50%",
-  },
   userInfo: {
     display: "grid",
     gridTemplateColumns: "auto auto",
   },
-  paper1: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 615,
-  },
-  paper2: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 130,
-  },
-  paper3: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 500,
-  },
-  paper4: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 150,
-  },
-
   grids: {
     display: "flex",
     flexGrow: 1,
@@ -195,7 +97,6 @@ export default function Home(props) {
   const [selectedsessionitem, setSelectedApplicationitem] = React.useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  // const [userId, setUserId] = useState(id)
 
   React.useEffect(() => {
     let isMount = true;
@@ -213,7 +114,6 @@ export default function Home(props) {
           SetFirstUserdata(res.data.data);
           console.log(res.data.data.id);
         }
-        // global.device_name = res.data.device_name;
       })
       .catch((err) => {
         console.log(err, "errorr");
@@ -221,7 +121,7 @@ export default function Home(props) {
     return () => {
       isMount = false;
     };
-  }, []);
+  });
 
   React.useEffect(() => {
     let isMount = true;
@@ -255,10 +155,9 @@ export default function Home(props) {
     return () => {
       isMount = false;
     };
-  }, [startDate, endDate]);
+  });
 
-  // window.sessionStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
-
+  
   function singleUserItem(e, data, id) {
     console.log(e.target, data, "eeeeeee");
     setSelectedUseritem(id);
@@ -366,7 +265,6 @@ export default function Home(props) {
    React.useEffect(() => {
     const sessionData = window.sessionStorage.getItem("sessiondata");
     const savedValues = JSON.parse(sessionData);
-    // updateSessionValues(savedValues.Firstdevicedata);
     SetFirstdevicedata(savedValues?.Firstdevicedata);
     SetSeconddevicedata(savedValues?.Seconddevicedata);
     SetFirstsessiondata(savedValues?.Firstsessiondata)
@@ -397,7 +295,7 @@ export default function Home(props) {
             marginTop: "5.5%",
           }}
         >
-          {role == "admin" && (
+          {role === "admin" && (
             <div
               className="dropdown"
               style={{
@@ -497,7 +395,6 @@ export default function Home(props) {
                 }}
                 className="item"
               >
-                {/* {data.device_name} */}
               </div>
 
               <StylesProvider injectFirst>
@@ -610,7 +507,6 @@ export default function Home(props) {
               className="dropdown-content"
               style={{ display: ApplicationActive ? "block" : "none" }}
             >
-              {/* {console.log(Seconddevicedata)} */}
               {Seconddevicedata?.map((data, i) => (
                 <div
                   onClick={(e) => {
@@ -828,8 +724,6 @@ export default function Home(props) {
                       {console.log(Secondsessiondata)}
                     </List>
                   </div>
-
-                  {/* <h1>{Secondsessiondata.upload_data_usage_average}</h1> */}
                 </>
               </Grid>
             </Grid>
@@ -931,39 +825,6 @@ export default function Home(props) {
                         </p>
                       </div>
                     </div>
-
-                    {/* <Divider />
-                    <div className="app-info-sub">
-                      <div>
-                        <img
-                          src={location1}
-                          alt=" "
-                          className="app-info-image"
-                        />
-                      </div>
-                      <div className="device-info-text">
-                        <p
-                          style={{
-                            marginTop: "-40px",
-                            marginLeft: "125px",
-                            fontWeight: "lighter",
-                          }}
-                        >
-                          Session Name
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "13px",
-                            fontWeight: "300",
-                            marginTop: "-8px",
-                            marginLeft: "125px",
-                            color: "#278EF1",
-                          }}
-                        >
-                          {Secondsessiondata.sessionname}
-                        </p>
-                      </div>
-                    </div> */}
                   </div>
                 </>
               </Grid>
