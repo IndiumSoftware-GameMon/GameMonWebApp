@@ -262,7 +262,7 @@ export default function SessionsMaincomp(props) {
             color="primary"
             style={{
               marginLeft: "92%",
-              marginTop: "-5%",
+              marginTop: "2%",
               color: "#FFFFFF",
               background: "#278EF1",
               borderRadius: "10px",

@@ -3,7 +3,6 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import { styled } from "@mui/material/styles";
-import { makeStyles } from "@material-ui/core/styles";
 
 function MetricUsage(props) {
   const [colorProg, setColorProg] = useState("");
