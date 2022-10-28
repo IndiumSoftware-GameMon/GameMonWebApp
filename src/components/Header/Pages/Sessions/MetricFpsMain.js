@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import axios from "../../../../axios/index";
-import { useLocation, useNavigate, createSearchParams } from "react-router-dom";
 import AuthContext from "../../../../hooks/useAuth";
 import Version from "../../../../asset/version.png";
 import List from "@material-ui/core/List";
@@ -12,35 +11,17 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Plotly from "plotly.js-basic-dist";
 import createPlotlyComponent from "react-plotly.js/factory";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import { StylesProvider } from "@material-ui/core/styles";
 import Typography from "@mui/material/Typography";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import auth from "../../../../hooks/useAuth"
 
 
-const drawerWidth = 0;
 const Plot = createPlotlyComponent(Plotly);
 const Styles = makeStyles((theme) => ({
   root: {
     display: "flex",
     marginTop: 55,
-  },
-
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: "none",
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    marginTop: 55,
-    width: drawerWidth,
   },
   drawerHeader: {
     display: "flex",
@@ -57,71 +38,7 @@ const Styles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    // marginLeft: -drawerWidth,
-    // [theme.breakpoints.down("md")]: {
-    //   transition: "none",
-    // },
   },
-  // contentShift: {
-  //   transition: theme.transitions.create("margin", {
-  //     easing: theme.transitions.easing.easeOut,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   marginLeft: 0,
-  //   [theme.breakpoints.down("md")]: {
-  //     marginLeft: -drawerWidth,
-  //   },
-  // },
-  emailicon: {
-    display: "flex",
-    alignItems: "left",
-    flexWrap: "wrap",
-    width: "50%",
-  },
-  userInfo: {
-    display: "grid",
-    gridTemplateColumns: "auto auto",
-  },
-  paper1: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 615,
-  },
-  paper2: {
-    padding: theme.spacing(2),
-    // marginTop: 20,
-    color: theme.palette.text.secondary,
-    // height: 130,
-    height: 130,
-    width: 200,
-    padding: 50,
-    marginTop: 23,
-    marginLeft: -91,
-    marginRight: 80,
-  },
-  paper3: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 500,
-  },
-  paper4: {
-    padding: theme.spacing(2),
-    marginTop: 20,
-    color: theme.palette.text.secondary,
-    height: 150,
-  },
-  typography: {
-    fontFamily: [
-      "Nunito",
-      "Roboto",
-      "Helvetica Neue",
-      "Arial",
-      "sans-serif",
-    ].join(","),
-  },
-
   grids: {
     display: "flex",
     flexGrow: 1,
@@ -133,49 +50,10 @@ const Styles = makeStyles((theme) => ({
 
 export default function SessionsMaincomp(props) {
   const classes = Styles();
-  const location = useLocation();
   const auth = useContext(AuthContext);
-  const [openForm, setOpenForm] = React.useState(false);
-  const [openMetric, setOpenMetric] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const prevOpen = React.useRef(openMetric);
-  const [Firstsessiondata, SetFirstsessiondata] = React.useState([]);
   const [Secondsessiondata, SetSecondsessiondata] = React.useState([]);
-  const [selecteditem, setSelecteditem] = React.useState("yellow");
-  const [rot, setRot] = React.useState(0);
-  const [selectionModel, setSelectionModel] = React.useState([1]);
   const uid = auth.id;
 
-
-  console.log("DataTable", selectionModel);
-
-  function rotateLeftfunc() {
-    setRot(rot - 90);
-  }
-  function rotateRightfunc() {
-    setRot(rot + 90);
-  }
-
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = "0" + dd;
-  }
-  if (mm < 10) {
-    mm = "0" + mm;
-  }
-  today = yyyy + "-" + mm + "-" + dd;
-  console.log(today);
-
-  React.useEffect(() => {
-    if (prevOpen.current === true && openMetric === false) {
-      anchorRef.current.focus();
-    }
-
-    prevOpen.current = openMetric;
-  }, [openMetric]);
 
   React.useEffect(() => {
     axios
@@ -203,56 +81,10 @@ export default function SessionsMaincomp(props) {
         console.log(global.userid);
         console.log(global.appname);
       });
-  }, []);
+  },);
 
-  const handleClose = () => {
-    setOpenForm(false);
-  };
 
-  const columns = [
-    { field: "id", headerName: "ID", width: 90 },
-    {
-      field: "firstName",
-      headerName: "First name",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "lastName",
-      headerName: "Last name",
-      width: 150,
-      editable: true,
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      width: 110,
-      editable: true,
-    },
-    {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.getValue(params.id, "firstName") || ""} ${params.getValue(params.id, "lastName") || ""
-        }`,
-    },
-  ];
 
-  const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  ];
 
   return (
     <>
