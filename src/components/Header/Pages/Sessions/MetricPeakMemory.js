@@ -216,12 +216,6 @@ export default function SessionsMaincomp(props) {
                 showlegend: false,
                 type: "scatter",
                 mode: "line",
-                type: "scatter",
-                mode: "line",
-                type: "scatter",
-                mode: "line",
-
-                marker: { enabled: false },
                 line: { shape: "spline", smoothing: 0.8 },
                 marker: { color: "#87CEEB", size: "0" },
               },
@@ -233,7 +227,6 @@ export default function SessionsMaincomp(props) {
               width: 800,
               height: 310,
               margin: { l: 90, r: 40, b: 95, t: 40, pad: 15 },
-              title: false,
               xref: 450,
 
               text: "Average Peak Memory",
@@ -267,31 +260,6 @@ export default function SessionsMaincomp(props) {
             }}
             config={{ displayModeBar: false }}
           />
-
-            {/* <Paper className={classes.paper2}>
-              <h4 align="left">Power Info</h4>
-              <TableContainer component={Paper} sx={{ boxShadow: "none" }}>
-                <Table
-                  sx={{ minWidth: 650 }}
-                  classes={{ root: classes.customTable }}
-                  size="small"
-                  aria-label="simple table"
-                >
-                  <TableRow sx={{ border: 0 }}>
-                    <TableCell align="right">{Secondsessiondata.power_average_usage}</TableCell>
-                    <TableCell align="right">--</TableCell>
-                    <TableCell align="right">--</TableCell>
-                    <TableCell align="right">--</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align="right">Average Usage</TableCell>
-                    <TableCell align="right">Core Usage</TableCell>
-                    <TableCell align="right">Frequencies</TableCell>
-                    <TableCell align="right">Architechture</TableCell>
-                  </TableRow>
-                </Table>
-              </TableContainer>
-            </Paper> */}
           </div>
         </div>
       </main>

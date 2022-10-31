@@ -226,10 +226,6 @@ export default function SessionsMaincomp(props) {
                   showlegend: false,
                   type: "scatter",
                   mode: "line",
-                  type: "scatter",
-                  mode: "line",
-
-                  marker: { enabled: false },
                   line: { shape: "spline", smoothing: 0.8 },
                   marker: { color: "#87CEEB", size: "0" },
                 },
@@ -241,7 +237,6 @@ export default function SessionsMaincomp(props) {
                 width: 800,
                 height: 310,
                 margin: { l: 90, r: 40, b: 95, t: 40, pad: 15 },
-                title: false,
                 xref: 450,
 
                 text: "CpuUsage",
