@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
@@ -25,12 +25,41 @@ import "./Home.css";
 import { StylesProvider } from "@material-ui/core/styles";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import ArticleIcon from "@mui/icons-material/Article";
+import DatelistenForOutsideClick from './listenForOutsideClicks'
+import DevicelistenForOutsideClick from './listenForOutsideClicks'
+import UserlistenForOutsideClick from './listenForOutsideClicks'
+import ApplicationlistenForOutsideClick from './listenForOutsideClicks'
+import SessionslistenForOutsideClick from './listenForOutsideClicks'
 
+const drawerWidth = 0;
 
 const Styles = makeStyles((theme) => ({
   root: {
     display: "flex",
     marginTop: 55,
+  },
+
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    marginTop: 55,
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
   },
   content: {
     flexGrow: 1,
@@ -40,10 +69,42 @@ const Styles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+
+  emailicon: {
+    display: "flex",
+    alignItems: "left",
+    flexWrap: "wrap",
+    width: "50%",
+  },
   userInfo: {
     display: "grid",
     gridTemplateColumns: "auto auto",
   },
+  paper1: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 615,
+  },
+  paper2: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 130,
+  },
+  paper3: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 500,
+  },
+  paper4: {
+    padding: theme.spacing(2),
+    marginTop: 20,
+    color: theme.palette.text.secondary,
+    height: 150,
+  },
+
   grids: {
     display: "flex",
     flexGrow: 1,
@@ -97,6 +158,28 @@ export default function Home(props) {
   const [selectedsessionitem, setSelectedApplicationitem] = React.useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  // const [userId, setUserId] = useState(id)
+
+  // Hide Dropdown on Outside Click
+  const DatemenuRef = useRef(null)
+  const [Datelistening, setDateListening] = useState(false)
+  React.useEffect(DatelistenForOutsideClick(Datelistening, setDateListening, DatemenuRef, setDateActive))
+
+  const DevicemenuRef = useRef(null)
+  const [Devicelistening, setDeviceListening] = useState(false)
+  useEffect(DevicelistenForOutsideClick(Devicelistening, setDeviceListening, DevicemenuRef, setDevicesActive))
+
+  const UsermenuRef = useRef(null)
+  const [Userlistening, setUserListening] = useState(false)
+  useEffect(UserlistenForOutsideClick(Userlistening, setUserListening, UsermenuRef, setUserActive))
+
+  const ApplicationmenuRef = useRef(null)
+  const [Applicationlistening, setApplicationListening] = useState(false)
+  useEffect(ApplicationlistenForOutsideClick(Applicationlistening, setApplicationListening, ApplicationmenuRef, setApplicationActive))
+
+  const SessionsmenuRef = useRef(null)
+  const [Sessionslistening, setSessionsListening] = useState(false)
+  useEffect(SessionslistenForOutsideClick(Sessionslistening, setSessionsListening, SessionsmenuRef, setSessionsActive))
 
   React.useEffect(() => {
     let isMount = true;
@@ -114,6 +197,7 @@ export default function Home(props) {
           SetFirstUserdata(res.data.data);
           console.log(res.data.data.id);
         }
+        // global.device_name = res.data.device_name;
       })
       .catch((err) => {
         console.log(err, "errorr");
@@ -121,7 +205,7 @@ export default function Home(props) {
     return () => {
       isMount = false;
     };
-  });
+  }, []);
 
   React.useEffect(() => {
     let isMount = true;
@@ -155,9 +239,10 @@ export default function Home(props) {
     return () => {
       isMount = false;
     };
-  });
+  }, [startDate, endDate]);
 
-  
+  // window.sessionStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
+
   function singleUserItem(e, data, id) {
     console.log(e.target, data, "eeeeeee");
     setSelectedUseritem(id);
@@ -265,6 +350,7 @@ export default function Home(props) {
    React.useEffect(() => {
     const sessionData = window.sessionStorage.getItem("sessiondata");
     const savedValues = JSON.parse(sessionData);
+    // updateSessionValues(savedValues.Firstdevicedata);
     SetFirstdevicedata(savedValues?.Firstdevicedata);
     SetSeconddevicedata(savedValues?.Seconddevicedata);
     SetFirstsessiondata(savedValues?.Firstsessiondata)
@@ -302,6 +388,7 @@ export default function Home(props) {
                 borderRadius: "20px 0 0 20px",
                 border: "1px solid white",
               }}
+              ref={UsermenuRef}
             >
               <div
                 onClick={(e) => {
@@ -354,6 +441,7 @@ export default function Home(props) {
           <div
             className="dropdown"
             style={{ borderRadius: "0 20px 20px 0", border: "1px solid white" }}
+            ref={DatemenuRef}
           >
             <div
               onClick={(e) => {
@@ -395,6 +483,7 @@ export default function Home(props) {
                 }}
                 className="item"
               >
+                {/* {data.device_name} */}
               </div>
 
               <StylesProvider injectFirst>
@@ -443,6 +532,7 @@ export default function Home(props) {
           <div
             className="dropdown"
             style={{ borderRadius: "20px 0 0 20px", border: "1px solid white" }}
+            ref={DevicemenuRef}
           >
             <div
               onClick={(e) => {
@@ -489,7 +579,8 @@ export default function Home(props) {
             </div>
           </div>
 
-          <div className="dropdown">
+          <div className="dropdown"
+            ref={ApplicationmenuRef}>
             <div
               onClick={(e) => {
                 setApplicationActive(!ApplicationActive);
@@ -507,6 +598,7 @@ export default function Home(props) {
               className="dropdown-content"
               style={{ display: ApplicationActive ? "block" : "none" }}
             >
+              {/* {console.log(Seconddevicedata)} */}
               {Seconddevicedata?.map((data, i) => (
                 <div
                   onClick={(e) => {
@@ -531,7 +623,8 @@ export default function Home(props) {
             </div>
           </div>
 
-          <div className="dropdown">
+          <div className="dropdown" 
+            ref={SessionsmenuRef}>
             <div
               onClick={(e) => {
                 setSessionsActive(!SessionsActive);
@@ -724,6 +817,8 @@ export default function Home(props) {
                       {console.log(Secondsessiondata)}
                     </List>
                   </div>
+
+                  {/* <h1>{Secondsessiondata.upload_data_usage_average}</h1> */}
                 </>
               </Grid>
             </Grid>
@@ -825,6 +920,39 @@ export default function Home(props) {
                         </p>
                       </div>
                     </div>
+
+                    {/* <Divider />
+                    <div className="app-info-sub">
+                      <div>
+                        <img
+                          src={location1}
+                          alt=" "
+                          className="app-info-image"
+                        />
+                      </div>
+                      <div className="device-info-text">
+                        <p
+                          style={{
+                            marginTop: "-40px",
+                            marginLeft: "125px",
+                            fontWeight: "lighter",
+                          }}
+                        >
+                          Session Name
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "13px",
+                            fontWeight: "300",
+                            marginTop: "-8px",
+                            marginLeft: "125px",
+                            color: "#278EF1",
+                          }}
+                        >
+                          {Secondsessiondata.sessionname}
+                        </p>
+                      </div>
+                    </div> */}
                   </div>
                 </>
               </Grid>
