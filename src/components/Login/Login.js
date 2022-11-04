@@ -30,7 +30,6 @@ const Login = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      console.log(values);
 
       var loginData = {
         email: values.email,
@@ -40,16 +39,12 @@ const Login = () => {
         .post("/login", loginData)
         .then((response) => {
           auth.login(response.data);
-          console.log(userInfo, "userInfo");
-          console.log(response.data.token, "token");
           navigate("/");
         })
         .catch((error) => {
-          console.log(error.toJSON());
           if (error.toJSON().status === 400) {
             setError("Incorrect Password");
           }
-          console.error("There was an error!", error);
         });
     },
     validationSchema: Yup.object().shape({

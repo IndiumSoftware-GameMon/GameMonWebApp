@@ -98,7 +98,6 @@ function App() {
             color="primary"
             style={{ margin: "10px", cursor: "pointer", color: "#278EF1" }}
             onClick={() => {
-              console.log(params, "params");
               handleUpdate(params.data, params.value);
             }}
           ></EditIcon>
@@ -119,24 +118,18 @@ function App() {
   //fetching user data from server
   const getUsers = () => {
     axios.get("http://44.226.139.67:3000/users").then((res) => {
-      console.log(res, "usersdata");
       SetUsers(res.data.data);
-      console.log(res.data.name);
     });
   };
 
   const onChange = (e) => {
-    console.log(e, "input");
     const { value, id } = e.target;
-    // console.log(value,id)
     setFormData({ ...formData, [id]: value });
   };
   const onRoleChange = (e) => {
-    console.log(e, "role change");
     setFormData({ ...formData, role: e.target.value });
   };
   const onDateChange = (e) => {
-    console.log(e, "role change");
     setFormData({ ...formData, access_end_date: e.target.value });
   };
 
@@ -146,22 +139,17 @@ function App() {
 
   //setting update row data to form data and opening pop up window
   const handleUpdate = (oldData, id) => {
-    console.log(id, "handle up id");
     setUpdateId(id);
-    console.log(oldData, "olde");
     delete oldData.id;
     delete oldData.number_of_days_left;
     delete oldData.status;
     delete oldData.user_since;
     setFormData(oldData);
-
-    console.log(formData, "updated");
     handleEditOpen();
   };
 
   //deleting a user
   const handleDelete = () => {
-    console.log(updateId, "updateid");
     handleDelClose();
     axios
       .delete("http://44.226.139.67:3000/user", {
@@ -170,16 +158,12 @@ function App() {
         },
       })
       .then((res) => {
-        console.log(res);
         getUsers();
       });
   };
 
   const handleFormAddSubmit = () => {
-  
-    console.log(formData, "formData");
     const values = JSON.stringify(formData);
-    console.log(values, "values");
     axios
       .post("http://44.226.139.67:3000/register", values, {
         headers: {
@@ -187,14 +171,12 @@ function App() {
         },
       })
       .then((res) => {
-        console.log(res, "reshandle");
         handleAddClose();
         getUsers();
       });
   };
 
   const handleFormEditSubmit = () => {
-    console.log(formData, "edit form");
     const values = JSON.stringify(formData);
     axios
       .put("http://44.226.139.67:3000/user", values, {
@@ -206,7 +188,6 @@ function App() {
         },
       })
       .then((res) => {
-        console.log(res);
         handleEditClose();
         getUsers();
       });

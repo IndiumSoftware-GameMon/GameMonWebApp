@@ -48,7 +48,6 @@ const Header = (props) => {
 
   const Header = ["Home", "Projects", "Admin"];
   const role = auth.role;
-  console.log(Header);
   const handleMenu = (event) => {
     setAnchor(event.currentTarget);
   };

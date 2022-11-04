@@ -15,9 +15,6 @@ import auth from "../../../../hooks/useAuth";
 
 export default function Sessionmain() {
   const [open, setOpen] = React.useState(false);
-  console.log(auth.token, "sessions page");
-  console.log(auth, "auth");
-  
 
 
   return (

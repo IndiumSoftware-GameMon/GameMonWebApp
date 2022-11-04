@@ -40,10 +40,6 @@ export default function AdminHeader() {
   const classes = Styles();
   const [open, setOpen] = React.useState(false);
   const isMatch = useMediaQuery("(min-width:400px)");
-  console.log(auth.token, "sessions page");
-  console.log(auth, "auth");
-
-
 
   
   return (

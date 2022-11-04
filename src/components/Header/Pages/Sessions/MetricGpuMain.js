@@ -75,15 +75,7 @@ export default function SessionsMaincomp(props) {
         },
       })
       .then((res) => {
-        console.log(res);
-
-        console.log(res.data, "sescond value");
-        console.log(res.data.data, "sescond value data");
         SetSecondsessiondata(res.data.data[0]);
-        console.log(global.deviceid)
-        console.log(global.sessionid)
-        console.log(global.userid)
-        console.log(global.appname)
       });
   },);
 
@@ -194,8 +186,6 @@ export default function SessionsMaincomp(props) {
                           ></ListItemText>
                         </ListItem>
                       </div>
-
-                      {console.log(Secondsessiondata)}
                     </List>
                   </div>
                 </>

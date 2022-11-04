@@ -190,17 +190,12 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res);
-        console.log(res.data, "Users value");
-        console.log(res.data.data, "Users value data");
         if (isMount) {
           SetFirstUserdata(res.data.data);
-          console.log(res.data.data.id);
         }
         // global.device_name = res.data.device_name;
       })
       .catch((err) => {
-        console.log(err, "errorr");
       });
     return () => {
       isMount = false;
@@ -209,8 +204,6 @@ export default function Home(props) {
 
   React.useEffect(() => {
     let isMount = true;
-    console.log(auth.token, "tokennnnnnnn")
-    console.log(uid, "user")
     axios
       .get("/devices", {
         params: {
@@ -223,18 +216,12 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res, "response");
-        console.log(res.status, "status");
-        console.log(res.data);
-        console.log(res.data.device_id);
-        console.log(res.data.device_name);
         if (isMount) {
           SetFirstdevicedata(res.data.data);
         }
         global.device_name = res.data.device_name;
       })
       .catch((err) => {
-        console.log(err, "errorr");
       });
     return () => {
       isMount = false;
@@ -244,7 +231,6 @@ export default function Home(props) {
   // window.sessionStorage.removeItem("sessiondata",JSON.stringify(valuesToSave))
 
   function singleUserItem(e, data, id) {
-    console.log(e.target, data, "eeeeeee");
     setSelectedUseritem(id);
     axios
       .get("/users", {
@@ -253,17 +239,10 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res);
-
-        console.log(res.data, "Users value");
-        console.log(res.data.data, "Users value data");
-        // SetSeconddevicedata(res.data.data);
-
       });
   }
 
   function singleDeviceItem(e, data, id) {
-    console.log(e.target, data, "eeeeeee");
     setSelectedDeviceitem(id);
     axios
       .get("/applications", {
@@ -276,17 +255,11 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res);
-
-        console.log(res.data, "sescond value");
-        console.log(res.data.data, "sescond value data");
         SetSeconddevicedata(res.data.data);
       });
   }
 
   function singleApplicationItem(e, data, id) {
-    console.log(e.target, data.app_name, "yyyyyy");
-    console.log(e.target, data.device_id, "yyyyyy");
     setSelectedApplicationitem(id);
     axios
       .get("/allSessions", {
@@ -302,14 +275,11 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res, "date");
-        console.log(res.data, "date1");
         SetFirstsessiondata(res.data.data);
       });
   }
 
   function singleSessionItem(e, data, id) {
-    console.log(e.target, data, "eeeeeee");
     setSelecteditem(id);
     axios
       .get("/sessionDetails", {
@@ -324,11 +294,6 @@ export default function Home(props) {
         },
       })
       .then((res) => {
-        console.log(res);
-
-        console.log(res.data, "sescond value");
-        console.log(res.data.data, "sescond value data");
-        console.log(data.device_id);
         SetSecondsessiondata(res.data.data[0]);
         global.sessionname = data.sessionname;
         global.deviceid = data.device_id;
@@ -341,11 +306,6 @@ export default function Home(props) {
         }, 200);
       });
   }
-  console.log(startDate, "starting date");
-  console.log(endDate, "ending date");
-  console.log(typeof startDate);
-  console.log(Secondsessiondata?.session_id);
-  console.log(global.device_name);
 
    React.useEffect(() => {
     const sessionData = window.sessionStorage.getItem("sessiondata");
@@ -412,14 +372,12 @@ export default function Home(props) {
                 className="dropdown-content"
                 style={{ display: UserActive ? "block" : "none" }}
               >
-                {console.log(User, "sadsasdasdasdasd")}
 
                 {FirstUserdata &&
                   FirstUserdata.map((data, i) => (
                     <div
                       onClick={(e) => {
                         setUser(e.target.textContent);
-                        console.log(data.id, "dataid")
                         auth.userId(data.id)
                         setUserActive(!UserActive);
                         singleUserItem(e, data, i);
@@ -431,7 +389,6 @@ export default function Home(props) {
                       className="item"
                     >
                       {data.name}
-                      {console.log(data.id, "idddddddddddddddddddddd")}
                     </div>
                   ))}
               </div>
@@ -556,8 +513,6 @@ export default function Home(props) {
               className="dropdown-content"
               style={{ display: DevicesActive ? "block" : "none" }}
             >
-              {/* {console.log(Firstdevicedata)} */}
-
               {Firstdevicedata &&
                 Firstdevicedata.map((data, i) => (
                   <div
@@ -573,7 +528,6 @@ export default function Home(props) {
                     className="item"
                   >
                     {data.device_name}
-                    {console.log(device)}
                   </div>
                 ))}
             </div>
@@ -598,7 +552,6 @@ export default function Home(props) {
               className="dropdown-content"
               style={{ display: ApplicationActive ? "block" : "none" }}
             >
-              {/* {console.log(Seconddevicedata)} */}
               {Seconddevicedata?.map((data, i) => (
                 <div
                   onClick={(e) => {
@@ -648,7 +601,6 @@ export default function Home(props) {
               className="dropdown-content"
               style={{ display: SessionsActive ? "block" : "none" }}
             >
-              {console.log(Firstsessiondata)}
               {Firstsessiondata?.map((data, i) => (
                 <div
                   key={i}
@@ -721,8 +673,6 @@ export default function Home(props) {
                           ></ListItemText>
                         </ListItem>
                       </div>
-
-                      {console.log(Secondsessiondata)}
                     </List>
                   </div>
 
@@ -770,8 +720,6 @@ export default function Home(props) {
                           ></ListItemText>
                         </ListItem>
                       </div>
-
-                      {console.log(Secondsessiondata)}
                     </List>
                   </div>
 
@@ -813,12 +761,8 @@ export default function Home(props) {
                           </ListItemText>
                         </ListItem>
                       </div>
-
-                      {console.log(Secondsessiondata)}
                     </List>
                   </div>
-
-                  {/* <h1>{Secondsessiondata.upload_data_usage_average}</h1> */}
                 </>
               </Grid>
             </Grid>
