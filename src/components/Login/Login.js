@@ -38,6 +38,7 @@ const Login = () => {
       axios
         .post("/login", loginData)
         .then((response) => {
+          console.log(response, " res");
           auth.login(response.data);
           navigate("/");
         })
@@ -155,7 +156,7 @@ const Login = () => {
                             onChange={formik.handleChange}
                           />
                           <Icon style={{ fontSize: "2.7rem" }}>
-                            <img src={eye} alt="eye icon"/>
+                            <img src={eye} alt="eye icon" />
                           </Icon>
                           <button
                             style={{

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const AuthContext = React.createContext({
   token: "",
-  role:"",
+  role: "",
+  name: "",
   isLoggedIn: false,
   login: () => { },
   logout: () => { },
@@ -14,8 +15,9 @@ export const AuthContextProvider = (props) => {
   const initialRole = sessionStorage.getItem("role");
   const [token, setToken] = useState(initialToken);
   const [userInfo, setUserInfo] = useState({});
-  const [role,setRole] = useState(initialRole);
+  const [role, setRole] = useState(initialRole);
   const [id, setId] = useState(null)
+  const [name, setName] = useState(null)
 
   const userIsLoggedIn = !!token;
 
@@ -24,6 +26,7 @@ export const AuthContextProvider = (props) => {
     setToken(data.token);
     setRole(data.role)
     setId(data.id)
+    setName(data.user_Name)
     sessionStorage.setItem("token", data.token)
     sessionStorage.setItem("role", data.role)
 
@@ -52,7 +55,8 @@ export const AuthContextProvider = (props) => {
     login: loginHandler,
     logout: logoutHandler,
     settinguserInfo: usersInfo,
-    userId: userIdHandler
+    userId: userIdHandler,
+    name: name,
   };
 
   return (
