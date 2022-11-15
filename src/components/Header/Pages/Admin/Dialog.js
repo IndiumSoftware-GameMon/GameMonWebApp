@@ -24,14 +24,22 @@ export default function FormEditDialog({
   onDateChange,
 }) {
   const { name, email, password, phone_number, role, access_end_date } = data;
-  
+
   return (
     <div>
       <Dialog
+        PaperProps={{
+          style: {
+
+            boxShadow: 'none',
+            maxWidth: "xl"
+          },
+        }}
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+
       >
         <CloseIcon
           onClick={handleClose}
@@ -53,7 +61,7 @@ export default function FormEditDialog({
               placeholder="Enter name"
               label="Name"
               variant="outlined"
-              style={{ marginLeft: "5%" }}
+              style={{ marginLeft: "2vh" }}
               margin="dense"
             />
             <TextField
@@ -63,7 +71,7 @@ export default function FormEditDialog({
               placeholder="Enter email"
               label="Email"
               variant="outlined"
-              style={{ marginLeft: "10%" }}
+              style={{ marginLeft: "2vh" }}
               margin="dense"
             />
 
@@ -74,7 +82,7 @@ export default function FormEditDialog({
               placeholder="Enter password"
               label="password"
               variant="outlined"
-              style={{ marginLeft: "5%" }}
+              style={{ marginLeft: "2vh" }}
               margin="dense"
             />
 
@@ -84,12 +92,12 @@ export default function FormEditDialog({
               onChange={(e) => onChange(e)}
               placeholder="Enter phone_number "
               label="phone_number"
-              style={{ marginLeft: "10%" }}
+              style={{ marginLeft: "2vh" }}
               variant="outlined"
               margin="dense"
             />
             <FormControl
-              style={{ marginLeft: "5%", width: "38.3%", marginTop: "2%" }}
+              style={{ marginLeft: "2vh", width: "38.3%", marginTop: "2%" }}
             >
               <InputLabel id="demo-simple-select-label">Role</InputLabel>
               <Select
@@ -110,7 +118,7 @@ export default function FormEditDialog({
               value={access_end_date}
               onChange={onDateChange}
               variant="outlined"
-              style={{ marginLeft: "10%", width: "38%", marginTop: "2%" }}
+              style={{ marginLeft: "5vh", width: "38%", marginTop: "2%" }}
               InputLabelProps={{
                 shrink: true,
               }}
