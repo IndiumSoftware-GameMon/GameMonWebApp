@@ -25,10 +25,17 @@ export default function FormAddDialog({
   updateId,
 }) {
   const { name, email, password, phone_number, role, access_end_date } = data;
- 
+
   return (
     <div>
       <Dialog
+        PaperProps={{
+          style: {
+
+            boxShadow: 'none',
+            maxWidth: "xl"
+          },
+        }}
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -190,6 +197,6 @@ export default function FormAddDialog({
           </List>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   );
 }
