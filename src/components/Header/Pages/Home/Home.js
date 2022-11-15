@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
@@ -307,7 +307,7 @@ export default function Home(props) {
       });
   }
 
-   React.useEffect(() => {
+  React.useEffect(() => {
     const sessionData = window.sessionStorage.getItem("sessiondata");
     const savedValues = JSON.parse(sessionData);
     // updateSessionValues(savedValues.Firstdevicedata);
@@ -324,7 +324,7 @@ export default function Home(props) {
   }, []);
 
   React.useEffect(() => {
-    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata,date,device,application,sessions,startDate,endDate,User }
+    const valuesToSave = { Firstdevicedata, Seconddevicedata, Firstsessiondata, Secondsessiondata, date, device, application, sessions, startDate, endDate, User }
     window.sessionStorage.setItem("sessiondata", JSON.stringify(valuesToSave))
 
   })
@@ -576,7 +576,7 @@ export default function Home(props) {
             </div>
           </div>
 
-          <div className="dropdown" 
+          <div className="dropdown"
             ref={SessionsmenuRef}>
             <div
               onClick={(e) => {
@@ -950,7 +950,7 @@ export default function Home(props) {
                   }
                   text="Average Memory Usage"
                   unit="MB"
-                  max={100}
+                  max={2048}
                 />
               </Link>
             </Grid>
@@ -999,8 +999,8 @@ export default function Home(props) {
                   }
                   text="Total Data Uploaded"
                   unit="MiB"
-                  max={100}
-                  width={50}
+                  max={1000}
+
                 />
               </Link>
             </Grid>
@@ -1014,7 +1014,7 @@ export default function Home(props) {
                 }
                 text="Average Peak Memory"
                 unit="%"
-                max={100}
+                max={2048}
               />
               {/* </Link> */}
             </Grid>

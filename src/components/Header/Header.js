@@ -49,11 +49,12 @@ const Header = (props) => {
   console.log(auth, "auth")
 
   const name = auth.name
+  const role = auth.role
   console.log(name)
 
 
   const Header = ["Home", "Projects", "Admin"];
-  const role = auth.role;
+
   const handleMenu = (event) => {
     setAnchor(event.currentTarget);
   };
@@ -124,8 +125,11 @@ const Header = (props) => {
           </div>
 
 
+          <div style={{ position: "absolute", right: "13%" }}>
+            <p style={{ color: "black", fontWeight: "700", fontSize: "18px" }}>{name}<sub style={{ color: "black", fontWeight: "200", fontSize: "12px" }}><i>({role})</i></sub></p>
 
-          <p style={{ color: "black", position: "absolute", right: "13%" }}>{name}</p>
+          </div>
+
 
           <button
             onClick={logoutHandler}
