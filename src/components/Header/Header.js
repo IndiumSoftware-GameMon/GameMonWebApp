@@ -136,9 +136,10 @@ const Header = (props) => {
               borderRadius: "4px",
               padding: "5px",
               right: "5%",
-              display: "inline-block",
+              zIndex: "10",
+
               position: "absolute",
-              cursor: "pointer",
+
               backgroundColor: "#278EF1",
             }}
           >
