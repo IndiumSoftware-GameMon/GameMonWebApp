@@ -1,0 +1,29 @@
+.ag-theme-alpine {
+ 
+ 
+  --ag-background-color: white;
+--ag-foreground-color: rgb(97, 94, 94);
+   --ag-header-foreground-color: black;
+  --ag-header-background-color: white;
+  --ag-odd-row-background-color: white;
+  --ag-header-column-resize-handle-color: white;
+ 
+
+  
+}
+.ag-theme-alpine .ag-icon-asc   {
+   /* FontAwesome uses font-weight bold */
+   font-weight: bold;
+color:#278EF1;
+}
+.ag-theme-alpine .ag-icon-desc   {
+   /* FontAwesome uses font-weight bold */
+   font-weight: bold;
+  color:#278EF1;
+}
+.ag-theme-alpine .ag-icon-none  {
+   /* FontAwesome uses font-weight bold */
+   font-weight: 1700;
+font-size:17px;
+color:#278EF1;
+}

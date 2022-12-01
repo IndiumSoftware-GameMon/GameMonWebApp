@@ -13,11 +13,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import Login from "./components/Login/Login";
+import SessionComparison from "./components/Header/Pages/SessionCompare/SessionCompare"
 
 
 function App() {
   const auth = useContext(AuthContext);
-  console.log(auth,"login sucess")
+  console.log(auth, "login sucess")
   const isLoggedIn = auth.isLoggedIn;
   const role = auth.role;
   return (
@@ -33,9 +34,10 @@ function App() {
           <Route path="/" element={[<Header />]}>
             <Route exact path="/Home" element={<Home />} />
             <Route path="/" element={<Navigate replace to="/Home" />} />
-          {role === "admin" && <Route exact path="/Admin" element={<Admin />} /> }  
+            {role === "admin" && <Route exact path="/Admin" element={<Admin />} />}
             <Route exact path="/Projects" element={<Projects />} />
-            {role === "admin" && <Route path="/Admin/*" element={[<Admin />]} /> }
+            <Route exact path="/SessionComparison" element={<SessionComparison />} />
+            {role === "admin" && <Route path="/Admin/*" element={[<Admin />]} />}
             <Route path="/sessions/*" element={[<Sessionmain />]} />
             <Route exact path="/Analysis" element={<Analysis />} />
           </Route>

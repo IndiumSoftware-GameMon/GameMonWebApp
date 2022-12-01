@@ -110,6 +110,16 @@ const Header = (props) => {
             >
               Projects
             </Button>
+            <Button
+              onClick={(e) => AnnualHandler(e)}
+              sx={{ paddingTop: 0 }}
+              variant="text"
+              component={Link}
+              to="/SessionComparison"
+              color="#232323"
+            >
+              Session Comparison
+            </Button>
             {role === "admin" && (
               <Button
                 onClick={(e) => AnnualHandler(e)}
