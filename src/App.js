@@ -14,7 +14,7 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login/Login";
 import SessionComparison from "./components/Header/Pages/SessionCompare/SessionCompare"
-
+import CompareDetails from "./components/Header/Pages/SessionCompare/CompareDetails"
 
 function App() {
   const auth = useContext(AuthContext);
@@ -37,6 +37,8 @@ function App() {
             {role === "admin" && <Route exact path="/Admin" element={<Admin />} />}
             <Route exact path="/Projects" element={<Projects />} />
             <Route exact path="/SessionComparison" element={<SessionComparison />} />
+            <Route exact path="/SessionComparison/details" element={<CompareDetails />} />
+
             {role === "admin" && <Route path="/Admin/*" element={[<Admin />]} />}
             <Route path="/sessions/*" element={[<Sessionmain />]} />
             <Route exact path="/Analysis" element={<Analysis />} />

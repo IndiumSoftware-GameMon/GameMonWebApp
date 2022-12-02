@@ -7,7 +7,9 @@ const AuthContext = React.createContext({
   isLoggedIn: false,
   login: () => { },
   logout: () => { },
-  userId: () => { }
+  userId: () => { },
+  compDataHandler: () => { },
+  compData: ""
 });
 
 export const AuthContextProvider = (props) => {
@@ -18,6 +20,7 @@ export const AuthContextProvider = (props) => {
   const [role, setRole] = useState(initialRole);
   const [id, setId] = useState(null)
   const [name, setName] = useState(null)
+  const [compData, setCompData] = useState(null)
 
   const userIsLoggedIn = !!token;
 
@@ -31,6 +34,10 @@ export const AuthContextProvider = (props) => {
     sessionStorage.setItem("role", data.role)
 
   };
+
+  const compDataHandler = (data) => {
+    setCompData(data)
+  }
   const userIdHandler = (id) => {
     setId(id)
   }
@@ -52,11 +59,13 @@ export const AuthContextProvider = (props) => {
     userInfo: userInfo,
     role: role,
     id: id,
+    compData: compData,
     login: loginHandler,
     logout: logoutHandler,
     settinguserInfo: usersInfo,
     userId: userIdHandler,
     name: name,
+    compDataHandler: compDataHandler
   };
 
   return (

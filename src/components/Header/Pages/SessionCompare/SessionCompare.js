@@ -6,11 +6,19 @@ import Paper from "@mui/material/Paper";
 import axios from "../../../../axios/index"
 import AuthContext from "../../../../hooks/useAuth"
 import "./SessionCompare.css"
+import { Link } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
+import CompareDetails from "./CompareDetails.js"
 
 function SessionCompare() {
     const [allSession, setAllSession] = useState([])
+    const [compSession, setCompSession] = useState([])
+    const [selectedSession, setSelectedSession] = useState([])
+    var [arr, setArr] = useState([])
     const auth = useContext(AuthContext)
     const userId = auth.id
+    const compData = auth.compData
+
     console.log(userId, "session userid")
 
     const gridStyle = useMemo(
@@ -44,6 +52,65 @@ function SessionCompare() {
         })
     }, [])
 
+
+    const onSelectionChanged = (e) => {
+        console.log(e.api.getSelectedRows());
+        setSelectedSession(e.api.getSelectedRows())
+        // console.log(selectedSession[0].session_id)
+
+        // console.log(selectedSession.forEach((data) => data[0]), "selected")
+        // console.log(Object.entries(selectedSession["session_id"]), "sdfg")
+
+    };
+    useEffect(() => {
+        console.log(selectedSession, "selected session")
+
+        setArr([])
+        for (let i = 0; i < selectedSession.length; i++) {
+            setArr((ps) => [...ps, selectedSession[i].session_id])
+        }
+
+
+        // const map1 = selectedSession.map(selectedSession[x => x.session_id]);
+        // console.log(map1, "map1")
+        console.log(arr, "arr")
+        console.log(Boolean(arr[8]))
+        console.log(typeof (arr[0]))
+        console.log(arr[0] ? arr[0] : "")
+
+
+
+    }, [selectedSession])
+
+    console.log(arr, "new Arr")
+
+
+
+    const compareSession = () => {
+        console.log("clicked")
+        console.log(userId)
+        console.log(auth.token)
+        axios.get("/compareSessions", {
+            params: {
+                userId: userId,
+                s1: arr[0] ? arr[0] : "",
+                s2: arr[1] ? arr[1] : "",
+                s3: arr[2] ? arr[2] : "",
+                s4: arr[3] ? arr[3] : "",
+                s5: arr[4] ? arr[4] : "",
+                s6: arr[5] ? arr[5] : "",
+                s7: arr[6] ? arr[6] : "",
+                s8: arr[7] ? arr[7] : "",
+
+
+
+            }, headers: { Authorization: `Bearer ${auth.token}` }
+        }).then(res => {
+            console.log(res)
+            auth.compDataHandler(res.data.data)
+        })
+    }
+
     const rowData = allSession?.map(session => {
         return {
             session_id: session?.session_id,
@@ -72,11 +139,12 @@ function SessionCompare() {
     ]);
 
 
-    const onSelectionChanged = (e) => {
-        console.log(e.api.getSelectedRows());
-    };
+
+
     return (
+
         <>
+
 
 
 
@@ -95,7 +163,9 @@ function SessionCompare() {
                 >
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <h4 style={{ color: "#278EF1" }}>Full sessions</h4>
-                        <p style={{ backgroundColor: "#278EF1", padding: "7px 15px 5px 15px", borderRadius: "16px", color: "white", fontSize: "14px", fontWeight: "600" }}>Compare Sessions</p>
+                        <Link to="/SessionComparison/details" style={{ textDecoration: 'none' }}>
+                            <p style={{ backgroundColor: "#278EF1", padding: "7px 15px 5px 15px", borderRadius: "16px", color: "white", fontSize: "14px", fontWeight: "600" }} onClick={compareSession} >Compare Sessions</p>
+                        </Link>
                     </div>
                     <hr style={{ marginLeft: "-1.4%", marginRight: "-1.4%" }} />
                     <div style={containerStyle}>
@@ -110,6 +180,7 @@ function SessionCompare() {
                                     paginationPageSize={8}
                                     rowMultiSelectWithClick={true}
                                     onSelectionChanged={onSelectionChanged}
+
                                 ></AgGridReact>
                             </div>
                         </div>
