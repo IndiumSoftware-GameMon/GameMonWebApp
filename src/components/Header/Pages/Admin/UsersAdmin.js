@@ -93,6 +93,7 @@ function App() {
       field: "id",
       cellRendererFramework: (params) => (
         <div>
+
           <EditIcon
             variant="outlined"
             color="primary"
@@ -240,7 +241,7 @@ function App() {
           columnDefs={columnDefs}
           onGridReady={onGridReady}
         />
-    
+
       </div>
 
       <FormEditDialog
@@ -278,7 +279,7 @@ function App() {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-     
+
         <DialogTitle
           style={{ marginLeft: "35%", fontSize: "20px" }}
           id="alert-dialog-title"
@@ -316,7 +317,7 @@ function App() {
                 onClick={handleDelete}
                 style={{
                   paddingLeft: "33%",
-                  marginTop:"-4%",
+                  marginTop: "-4%",
                   fontFamily: "normal normal bold 16px/21px Product Sans",
                 }}
                 color="secondary"

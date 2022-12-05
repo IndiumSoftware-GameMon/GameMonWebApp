@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect, useContext } from 'react'
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+// import "ag-grid-community/styles/ag-grid.css";
+// import "ag-grid-community/styles/ag-theme-alpine.css";
 import Paper from "@mui/material/Paper";
 import axios from "../../../../axios/index"
 import AuthContext from "../../../../hooks/useAuth"
