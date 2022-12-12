@@ -20,7 +20,7 @@ import { Icon } from "@material-ui/core";
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 

@@ -32,7 +32,7 @@ function App() {
     role: "",
     access_end_date: "",
   };
-  const [gridApi, setGridApi] = useState(null);
+  const [gridApi, setGridApi] = useState("");
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openAdd, setOpenAdd] = React.useState(false);
   const [updateId, setUpdateId] = useState("");

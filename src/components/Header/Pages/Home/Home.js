@@ -143,10 +143,10 @@ export default function Home(props) {
   const [UserActive, setUserActive] = useState(false);
   const [SessionsActive, setSessionsActive] = useState(false);
   const [DateActive, setDateActive] = useState(false);
-  const [User, setUser] = useState(null);
-  const [application, setApplication] = useState(null);
-  const [device, setDevices] = useState(null);
-  const [sessions, setSessions] = useState(null);
+  const [User, setUser] = useState("");
+  const [application, setApplication] = useState("");
+  const [device, setDevices] = useState("");
+  const [sessions, setSessions] = useState("");
   const [date, setDate] = useState("Date");
   const [FirstUserdata, SetFirstUserdata] = React.useState([]);
   const [Firstdevicedata, SetFirstdevicedata] = React.useState([]);
@@ -161,23 +161,23 @@ export default function Home(props) {
   // const [userId, setUserId] = useState(id)
 
   // Hide Dropdown on Outside Click
-  const DatemenuRef = useRef(null)
+  const DatemenuRef = useRef("")
   const [Datelistening, setDateListening] = useState(false)
   React.useEffect(DatelistenForOutsideClick(Datelistening, setDateListening, DatemenuRef, setDateActive))
 
-  const DevicemenuRef = useRef(null)
+  const DevicemenuRef = useRef("")
   const [Devicelistening, setDeviceListening] = useState(false)
   useEffect(DevicelistenForOutsideClick(Devicelistening, setDeviceListening, DevicemenuRef, setDevicesActive))
 
-  const UsermenuRef = useRef(null)
+  const UsermenuRef = useRef("")
   const [Userlistening, setUserListening] = useState(false)
   useEffect(UserlistenForOutsideClick(Userlistening, setUserListening, UsermenuRef, setUserActive))
 
-  const ApplicationmenuRef = useRef(null)
+  const ApplicationmenuRef = useRef("")
   const [Applicationlistening, setApplicationListening] = useState(false)
   useEffect(ApplicationlistenForOutsideClick(Applicationlistening, setApplicationListening, ApplicationmenuRef, setApplicationActive))
 
-  const SessionsmenuRef = useRef(null)
+  const SessionsmenuRef = useRef("")
   const [Sessionslistening, setSessionsListening] = useState(false)
   useEffect(SessionslistenForOutsideClick(Sessionslistening, setSessionsListening, SessionsmenuRef, setSessionsActive))
 
@@ -264,7 +264,7 @@ export default function Home(props) {
     axios
       .get("/allSessions", {
         params: {
-          DeviceId: data.device_id,
+          deviceId: data.device_id,
           userId: uid,
           appName: data.app_name,
           fromDate: startDate,

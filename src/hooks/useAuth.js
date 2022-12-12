@@ -18,8 +18,8 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initialToken);
   const [userInfo, setUserInfo] = useState({});
   const [role, setRole] = useState(initialRole);
-  const [id, setId] = useState(null)
-  const [name, setName] = useState(null)
+  const [id, setId] = useState("")
+  const [name, setName] = useState("")
   const [compData, setCompData] = useState(null)
 
   const userIsLoggedIn = !!token;
