@@ -25,6 +25,7 @@ import "./Home.css";
 import { StylesProvider } from "@material-ui/core/styles";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import ArticleIcon from "@mui/icons-material/Article";
+import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import DatelistenForOutsideClick from './listenForOutsideClicks'
 import DevicelistenForOutsideClick from './listenForOutsideClicks'
 import UserlistenForOutsideClick from './listenForOutsideClicks'
@@ -302,7 +303,7 @@ export default function Home(props) {
         global.sessionid = data.session_id;
 
         setTimeout(() => {
-          setSelectedDevice(Secondsessiondata.sessionname);
+          setSelectedDevice(Secondsessiondata?.sessionname);
         }, 200);
       });
   }
@@ -675,8 +676,7 @@ export default function Home(props) {
                       </div>
                     </List>
                   </div>
-
-                  <div className="device-info-style-list">
+                  <div className="device-info-style-list" >
                     <List
                       style={{
                         maxHeight: "94%",
@@ -719,11 +719,59 @@ export default function Home(props) {
                             }
                           ></ListItemText>
                         </ListItem>
+
+                      </div>
+                    </List>
+                  </div>
+                  <div className="device-info-style-list" >
+                    <List
+                      style={{
+                        maxHeight: "94%",
+                        paddingTop: "0px",
+                        paddingBottom: "0px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: "#FFFFFF",
+                          background: "#278EF1",
+                          borderRadius: "8px",
+                        }}
+                      >
+
+                        <ListItem button>
+                          <DeveloperBoardIcon sx={{ fontSize: 40 }} />
+
+                          <ListItemText
+                            primary={
+                              <Typography
+                                type="body2"
+                                style={{
+                                  color: "white",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                {Secondsessiondata?.gpu_vendor}
+                              </Typography>
+                            }
+                            secondary={
+                              <Typography
+                                type="body2"
+                                style={{
+                                  color: "white",
+                                  marginLeft: "15px",
+                                }}
+                              >
+                                Gpu Vendor
+                              </Typography>
+                            }
+                          ></ListItemText>
+                        </ListItem>
                       </div>
                     </List>
                   </div>
 
-                  <div className="device-info-style-list">
+                  <div className="device-info-style-list" >
                     <List
                       style={{
                         maxHeight: "94%",
